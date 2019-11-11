@@ -1,0 +1,671 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td
+	{
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+td,th,caption {
+	font-size: 14px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	font-size: 100%;
+}
+
+address,caption,cite,code,dfn,em,strong,th,var {
+	font-style: normal;
+	font-weight: normal;
+}
+
+a {
+	color: #555;
+	text-decoration: none;
+}
+/*add by zhangfjb 2016-10-26*/
+a:visited,a:focus,a:hover {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+ol,ul,li {
+	list-style: none;
+}
+
+input,textarea,select,button {
+	font: 14px Verdana, Helvetica, Arial, sans-serif;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+html {
+	/* overflow-y: scroll; */ /*modify by zhangfj 2016-10-31 注释 */
+	
+}
+
+.row {
+	margin-left: -15px;
+	margin-right: -10px;
+}
+/* css common */
+.clearfix:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+input,button,select {
+	font-family: "微软雅黑";
+}
+
+input,label {
+	vertical-align: middle;
+}
+
+body {
+	font-family: "微软雅黑";
+	background-color: #fff; /*modify by zhangfj 2016-10-26 #fcfcfc*/
+	font-size: 12px;
+}
+
+.width {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.icon {
+	display: block;
+	background: url(../../images/icon/2/icon.png) no-repeat;
+}
+
+/* 头部 */
+header {
+	width: 100%;
+	height: 66px;
+	background-color: #32b5cb;
+}
+
+header .width img.logo {
+	margin-left: 11px;
+	margin-top: 21px;
+	float: left;
+}
+
+header .right-top {
+	float: right;
+	margin-top: 22px;
+}
+
+header .right-top li {
+	float: left;
+}
+
+header .right-top li input {
+	width: 144px;
+	height: 26px;
+	background-color: #5dc8da;
+	border: none;
+	border-radius: 26px;
+	font-size: 12px;
+	color: #fff;
+	text-indent: 2.5em;
+	background-image: url(../../images/icon/2/search-icon_03.png);
+	background-repeat: no-repeat;
+	background-position: 13px 7px;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
+	color: #fff;
+}
+
+input:-moz-placeholder,textarea:-moz-placeholder {
+	color: #fff;
+}
+
+input::-moz-placeholder,textarea::-moz-placeholder {
+	color: #fff;
+}
+
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {
+	color: #fff;
+}
+
+header .right-top li.search {
+	margin-right: 15px;
+}
+
+header .right-top li.user {
+	height: 22px;
+	border-left: 1px solid #5bc3d5;
+	padding-left: 15px;
+	margin-top: 2px;
+}
+
+header .right-top li.user dt {
+	width: 24px;
+	height: 24px;
+	background-color: #fff;
+	border-radius: 50%;
+	float: left;
+	margin-right: 7px;
+	overflow: hidden;
+}
+
+header .right-top li.user dt img {
+	width: 100%;
+	height: 100%;
+}
+
+header .right-top li.user dd {
+	float: left;
+	font-size: 14px;
+	color: #fff;
+	line-height: 24px;
+}
+
+header .right-top li.user span {
+	width: 10px;
+	height: 20px;
+	background-position: -21px 8px;
+	float: left;
+	margin-left: 5px;
+}
+
+header .right-top li.quit {
+	margin-top: 2px;
+}
+
+header .right-top li.quit a {
+	line-height: 24px;
+	font-size: 14px;
+	color: #fff;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+.content {
+	background-color: #fff;
+	border: 1px solid #e8ecef;
+	border-top: none;
+}
+/* 侧边导航 */
+.nav-list {
+	float: left;
+	width: 215px;
+	background-color: #f3f7f7;
+	padding-top: 15px;
+	height: 100%
+}
+
+.nav-list ul.first-nav a {
+	width: 100%;
+	line-height: 40px;
+	cursor: pointer;
+	position: relative;
+	display: block;
+	font-size: 14px;
+}
+
+.nav-list ol.second-nav li {
+	position: relative;
+}
+
+.nav-list ol.second-nav li a {
+	padding-left: 58px;
+	/* width: 157px; */ /*modify by zhangfjb 2016-10-26*/
+	font-size: 12px;
+}
+
+.nav-list ol.third-nav li {
+	position: relative;
+}
+
+.nav-list ol.third-nav li a {
+	padding-left: 72px;
+	/* width: 157px; */ /*modify by zhangfjb 2016-10-26*/
+	font-size: 12px;
+}
+
+.nav-list ul.first-nav b,.nav-list ol.second-nav b {
+	border-left: 1px solid #32b5cb;
+	float: left;
+	width: 1px;
+	height: 40px;
+	position: absolute;
+	left: 0px; /*modify by zhangfjb 2016-10-26 -1px*/
+	display: none;
+}
+
+.nav-list ul.first-nav span.icon {
+	width: 24px;
+	height: 23px;
+	float: left;
+	margin-top: 7px;
+	margin-right: 6px;
+	margin-left: 28px;
+}
+
+.nav-list ul.first-nav i.icon {
+	display: block;
+	width: 10px;
+	height: 10px;
+	float: right;
+	margin-right: 30px;
+	margin-top: 15px;
+}
+
+.nav-list ul.first-nav li.has i.icon {
+	float: left;
+	margin-right: 8px;
+}
+
+.nav-list ol.second-nav li.active,.nav-list ul.first-nav a.active {
+	background-color: #fff;
+	color: #3596b4;
+}
+
+.nav-list ol.second-nav li.active b,.nav-list ul.first-nav a.active b {
+	display: block !important;
+}
+
+.nav-list ol.second-nav li.active a,.nav-list ul.first-nav a.active a {
+	color: #3596b4
+}
+
+.nav-list ul.first-nav i.less {
+	background-position: -82px -19px;
+}
+
+.nav-list ul.first-nav i.plus {
+	background-position: -92px -20px;
+}
+
+.nav-list ul.first-nav a.home-page span.icon {
+	background-position: 1px -21px;
+}
+
+.nav-list ul.first-nav a.task span.icon {
+	background-position: -30px -22px;
+}
+
+.nav-list ul.first-nav a.test span.icon {
+	background-position: -58px -22px;
+}
+
+.nav-list ul.first-nav a.project span.icon {
+	background-position: 1px -49px;
+}
+
+.nav-list ul.first-nav a.web span.icon {
+	background-position: -30px -47px;
+}
+
+.nav-list ul.first-nav a.app span.icon {
+	background-position: -60px -49px;
+}
+
+.nav-list ul.first-nav a {
+	color: #4e4d4d;
+	display: block;
+}
+
+.nav-list ul.first-nav a:hover,.nav-list ol.second-nav a:hover {
+	background-color: #fff;
+	color: #3596b4;
+}
+
+.nav-list ul.first-nav a:hover b,.nav-list ol.second-nav li:hover b {
+	display: block;
+}
+
+.nav-list ul.first-nav ol li {
+	line-height: 38px;
+}
+/* 表格  modify by zhangfj 2016-10-26 将.content 去掉*/
+.case table {
+	width: 100%;
+	color: #768797;
+	margin-bottom: 28px;
+}
+
+.case table td a {
+	color: #32b5cb;
+	margin-right: 15px;
+}
+
+.case table tr th {
+	background-color: #f9f9f9;
+	height: 40px;
+	border-top: 1px solid #eee;
+	text-align: left;
+	font-size: 12px;
+}
+
+.case table tr td {
+	height: 40px;
+	border-bottom: 1px solid #eee;
+	font-size: 12px;
+}
+
+.case table tr th:nth-child(1),.case table tr td:nth-child(1) {
+	padding-left: 23px;
+	width: 37px;
+}
+
+.case table tr th.name,.case table tr td.name {
+	width: 150px;
+}
+
+.case table tr th.project,.case table tr td.project {
+	width: 150px;
+}
+
+.case table tr th.time,.case table tr td.time {
+	width: 170px;
+}
+
+.case table tr th.user,.case table tr td.user {
+	width: 90px;
+}
+
+.status {
+	width: 110px;
+}
+
+.status p {
+	width: 60px;
+	line-height: 20px;
+	background-color: #aabaca;
+	text-align: center;
+	color: #fff;
+	border-radius: 10px;
+}
+
+.rsuccess p {
+	background-color: #8dbc7a;
+}
+
+.rfail p {
+	background-color: #e78c8e;
+}
+
+.rmission-ing p {
+	background-color: #fff;
+	color: #32b5cb;
+	border: 1px solid #32b5cb;
+	width: 58px;
+	height: 18px;
+	line-height: 18px;
+}
+
+/* 分页 */
+.paging ul.total {
+	float: left;
+	margin-left: 36px;
+}
+
+.paging ul.total li {
+	margin-right: 30px;
+}
+
+.paging ul.num {
+	float: right;
+}
+
+.paging ul.num li.no {
+	padding-left: 7px;
+	padding-right: 7px;
+	height: 20px;
+	border: 1px solid #eee;
+	cursor: pointer;
+	line-height: 20px;
+}
+
+.paging ul.num li.prev {
+	width: 7px;
+	padding-left: 16px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.paging ul.num li.next {
+	width: 16px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	margin-right: 30px
+}
+
+.paging ul.num button {
+	width: 46px;
+	height: 22px;
+	font-size: 12px;
+	background: none;
+	border: 1px solid #eee;
+	border-radius: 10px;
+	color: #bbc2c5;
+	margin-left: 10px;
+}
+
+.paging ul li {
+	float: left;
+	color: #bbc2c5;
+}
+
+.paging ul li input {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #eee;
+	text-align: center;
+	color: #bbc2c5;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+/* 版权 */
+footer {
+	width: 100%;
+	height: 80px;
+	background-color: #fff;
+	border-top: 1px solid #eaebeb;
+	margin-top: 30px;
+}
+
+footer p {
+	text-align: center;
+	margin-top: 28px;
+	color: #6d7172;
+}
+
+.popup-bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	background-color: #000;
+	opacity: 0.3;
+}
+
+/*弹出层*/
+.popup-content {
+	width: 100%; /*modify by zhangfj 2016-11-1 1064px*/
+	background-color: #fff;
+	position: fixed;
+	margin: 0 auto;
+	/* top: 80px;
+	margin-left: 50%; */ /*modify by zhangfj 2016-11-1 注释*/
+	left: -4px; /*modify by zhangfj 2016-11-1  -534px*/
+	border-radius: 5px;
+}
+
+.popup-content .tab {
+	width: 100%;
+	height: 46px;
+	background-color: #32b5cb;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.nav-uls {
+	height: 100.5%;
+	width: 202px;
+	border: 1px solid #57c7da;
+	border-bottom: none;
+	border-right: none;
+	margin-left: 30px;
+	border-top-left-radius: 5px;
+	padding-top: 12px;
+}
+
+.nav-uls ul {
+	padding-left: 18px;
+	color: #4e4d4d;
+	line-height: 28px;
+}
+
+.nav-uls i.icon {
+	float: left;
+	width: 10px;
+	height: 10px;
+	background-position: -92px -20px;
+	margin-top: 9px;
+	margin-right: 8px;
+}
+
+.nav-uls ul li {
+	cursor: pointer;
+}
+
+.nav-uls ul li.active {
+	color: #32b5cb;
+}
+
+.nav-uls i.less {
+	background-position: -82px -19px;
+}
+
+.nav-uls ul ol.second-nav li {
+	padding-left: 36px;
+}
+
+.nav-uls ul ol.third-nav li {
+	padding-left: 54px;
+}
+
+.nav-uls ul ol.forth-nav li {
+	padding-left: 72px;
+}
+
+.popup-case .nav-uls ul ol.second-nav li {
+	padding-left: 18px;
+}
+
+.popup-case .nav-uls ul ol.third-nav li {
+	padding-left: 36px;
+}
+
+.popup-case .nav-uls ul ol.forth-nav li {
+	padding-left: 54px;
+}
+
+input[type="radio"] {
+	margin: 3px 3px 0px 5px;
+	display: none;
+}
+
+label.radio-btn {
+	padding-left: 20px;
+	cursor: pointer;
+	background: url(../../images/icon/2/radio_bg_03.png) no-repeat -3px -4px;
+}
+
+label.radio-btn.checked {
+	background: url(../../images/icon/2/radio_bg_03.png) no-repeat -3px
+		-23px;
+}
+
+input[type="checkbox"] {
+	margin: 3px 3px 0px 5px;
+	display: none;
+}
+
+label.checkbox-btn {
+	padding-left: 20px;
+	cursor: pointer;
+	background: url(../../images/icon/2/checkbox-bg_06.png) no-repeat -1px
+		-3px;
+}
+
+label.checkbox-btn.checked {
+	background: url(../../images/icon/2/checkbox-bg_06.png) no-repeat -1px
+		-19px;
+}
+
+.arrow-bg {
+	position: relative;
+}
+
+.arrow-bg i {
+	width: 17px;
+	height: 20px;
+	position: absolute;
+	left: 230px;
+	top: 5px;
+	background-color: #fff;
+	background-position: -86px -86px;
+	cursor: pointer;
+}
+
+.arrow-bg.type i {
+	left: 268px;
+}
+
+.content .minHeight {
+	min-height: 548px;
+}
+
+.case .projectTree {
+	display: none;
+	position: absolute;
+	z-index: 99;
+	right: 0px;
+	float: right;
+	background-color: #fff;
+	height: 500px !important;
+	border-bottom: 1px solid #57c7da;
+}
+
+/*add by zhangfj 2016-11-15 滚动条样式*/
+::-webkit-scrollbar-track {
+	background-color: #F5F5F5
+} /* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: #F5F5F5
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #999
+} /* 滑块颜色 */
+/* ::-webkit-scrollbar-button {
+	background-color: #999;
+} 滑轨两头的监听按钮颜色
+::-webkit-scrollbar-corner {
+	background-color: #999;
+} 横向滚动条和纵向滚动条相交处尖角的颜色 */

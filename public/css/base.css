@@ -1,0 +1,173 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul,p {
+	margin: 0;
+}
+
+em,i {
+	font-style: normal;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	color: #333;
+}
+
+a:hover,a:focus {
+	color: #1dac75;
+}
+
+a,a:visited,a:hover,a:active,a:focus {
+	text-decoration: none;
+}
+
+body {
+	font-family: "微软雅黑";
+	background: #f1f1f1;
+	font-size: 14px;
+}
+
+input {
+	outline: none;
+}
+
+.bg-white {
+	background: #fff !important;
+}
+
+.color-orange {
+	color: #f5a902;
+}
+
+.color-red {
+	color: #ff0404;
+}
+
+.color-darkgray {
+	color: #1a1919
+}
+
+.t-right {
+	text-align: right;
+}
+
+.short-input {
+	width: 70% !important;
+}
+
+.m-t-100 {
+	margin-top: 40px !important;
+}
+
+.m-t-40 {
+	margin-top: 40px !important;
+}
+
+.clearfix {
+	zoom: 1;
+	display: block;
+	clear: both;
+}
+
+.clearfix:after {
+	content: " ";
+	display: block;
+	clear: both;
+}
+
+.button {
+	display: block;
+	width: 290px;
+	margin: 30px auto;
+	height: 47px;
+	line-height: 47px;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	border-radius: 22px;
+}
+
+.button:hover,.button:visited {
+	color: #fff;
+}
+
+.wrapper {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.header {
+	height: 72px;
+	background: #2e323e;
+	border-bottom: 1px solid #efeded;
+}
+
+.container {
+	
+}
+
+.footer {
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: #fff;
+	color: #2e323e;
+	font-size: 12px;
+	border-top: 1px solid #fafafa;
+}
+
+.header .logo {
+	float: left;
+	height: 72px;
+	line-height: 72px;
+}
+
+.header .logo img {
+	vertical-align: middle;
+}
+
+.header .logo span {
+	font-size: 18px;
+	color: #cfcfcf;
+	vertical-align: middle;
+	margin-left: 3px;
+}
+
+.header .header-span {
+	line-height: 72px;
+	float: right;
+	color: #fff;
+	margin-right: 45px;
+}
+
+.header .header-span a {
+	color: #fff;
+}
+
+.header .header-span a.register {
+	color: #1f9b6d;
+}
+
+/* add by zhangfj 2016-1-28 ��֤��ʽ С��ʾ δʹ�� */
+.validate-tip {
+	background-position: -59px -70px;
+	background-color: #FFF5F5;
+	border: 1px solid red;
+	color: red;
+	padding-left: 25px;
+	background-image: url("../images/validate-tip.png");
+	background-repeat: no-repeat;
+}
+/* add by zhangfj 2016-1-28 ��֤��ʽ �ؼ��߿��� */
+.validate-controller {
+	border: 1px solid red !important;
+}
+.alert-broser{
+	color:red;
+}
