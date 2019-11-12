@@ -1,31 +1,33 @@
 <?php namespace App\Http\Controllers\Campaign\YS;
 
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\Campaign\YS\ApiModel;
-use App\Services\YS\ApiService;
-use Illuminate\Http\Request;
 
-class ApiController extends Controller {
+use App\Models\Campaign\YS\NewslistrightModel;
+use App\Services\YS\NewsListRightService;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class NewsListRightController extends Controller {
 
     /**
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return string
+     * @return Response
      */
 	public function index(Request $request)
 	{
-		//
-        $time=time();
+	    //
         $version    = $request->input('version');
         $integrate  = $request->input('integrate');
-        $startTime  = $request->input('startTime',date('Y-m-d',$time-7*24*60*60));
-        $endTime    = $request->input('endTime',date('Y-m-d',$time+24*60*60));
-        $query      = new ApiService();
-        $apis        = $query->getApiData($version,$integrate,$startTime,$endTime);
-        $arr        = array();
-        if($apis){
-            foreach ($apis as $rows) {
+        $startTime  = $request->input('startTime');
+        $endTime    = $request->input('endTime');
+        $query      = new NewsListRightService();
+        $story      = $query->getNewsListRightData($version,$integrate,$startTime,$endTime);
+        $arr=array();
+        if($story){
+            foreach ($story as $rows) {
                 $data[] = $rows;
                 $arr['success'] = 1;
                 $arr['data'] = $data;
@@ -36,20 +38,23 @@ class ApiController extends Controller {
         return response($arr,200);
 	}
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function getData(Request $request){
         $time=time();
         $version    = $request->input('version');
         $integrate  = $request->input('integrate');
         $startTime  = $request->input('startTime',date('Y-m-d',$time-7*24*60*60));
         $endTime    = $request->input('endTime',date('Y-m-d',$time+24*60*60));
-
-        $api = ApiModel::where('intVersionID','=',$version)
+        $newListRight = NewslistrightModel::where('intVersionID','=',$version)
             ->where('intIntegrateID','=',$integrate)
-            ->whereBetween('dateApiDate',[$startTime,$endTime])
+            ->whereBetween('dateAllDate',[$startTime,$endTime])
             ->orderBy('created_at','desc')->first();
         $arr=array();
-        if($api){
-            $data[] = $api;
+        if($newListRight){
+            $data[] = $newListRight;
             $arr['success'] = 1;
             $arr['data'] = $data;
         }else{

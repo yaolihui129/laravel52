@@ -47,6 +47,10 @@ Route::group ( [
 
 
 
+
+
+
+
 /**
  * YonSuite质量全景分析
  */
@@ -57,17 +61,17 @@ Route::group ( [
 ], function () {
     Route::group ( [
         'prefix' => 'ys',
-        'namespace' => 'ys'
+        'namespace' => 'YS'
     ], function () {
         //初始化页面
-        Route::get('/ysIndex',"YSController@index");
+        Route::get('/ysIndex',"YsController@index");
         //初始化版本号
-        Route::get('/getVersion',"YSController@getVersion");
-        Route::get('/getYSResource',"YSController@getYSResource");
-        Route::resource('/setVersion',"YSController@setVersion");
+        Route::get('/getVersion',"YsController@getVersion");
+        Route::get('/getYSResource',"YsController@getYSResource");
+        Route::resource('/setVersion',"YsController@setVersion");
         //初始化集成号
-        Route::get('/getIntegrate',"YSController@getIntegrate");
-        Route::resource('/setIntegrate',"YSController@setIntegrate");
+        Route::get('/getIntegrate',"YsController@getIntegrate");
+        Route::resource('/setIntegrate',"YsController@setIntegrate");
 
         // 专项
         Route::group ( [
@@ -143,10 +147,10 @@ Route::group ( [
         Route::group ( [
             'prefix' => 'BUG'
         ], function () {
-            Route::get ( "index", "BUGController@index" );
-            Route::get ( "create", "BUGController@create" );
-            Route::resource ( "update", "BUGController@update" );
-            Route::get ( "getData", "BUGController@getData" );
+            Route::get ( "index", "BugController@index" );
+            Route::get ( "create", "BugController@create" );
+            Route::resource ( "update", "BugController@update" );
+            Route::get ( "getData", "BugController@getData" );
         } );
 
         //公共项目测试
