@@ -7,19 +7,19 @@
 <link rel="stylesheet" href="css/comon0.css">
 </head>
 	<script>
-	$(window).load(function(){  
-             $(".loading").fadeOut()
-            });
+    $(window).load(function(){  
+      $(".loading").fadeOut()
+    });
 			
-/****/
-$(document).ready(function(){
-  let whei = $(window).width();
-  $("html").css({fontSize:whei/20});
-	$(window).resize(function(){
+    /****/
+    $(document).ready(function(){
       let whei = $(window).width();
-      $("html").css({fontSize:whei/20})
-});
-	});
+      $("html").css({fontSize:whei/20});
+      $(window).resize(function(){
+          let whei = $(window).width();
+          $("html").css({fontSize:whei/20})
+      });
+    });
 	</script>
 	<script type="text/javascript" src="js/echarts.min.js"></script> 
 	<script language="JavaScript" src="js/js.js"></script> 
@@ -41,9 +41,9 @@ $(document).ready(function(){
     {
        clearTimeout(t);//清除定时器
        dt = new Date();
-		var y=dt.getFullYear();
-		var mt=dt.getMonth()+1;
-		var day=dt.getDate();
+        var y=dt.getFullYear();
+        var mt=dt.getMonth()+1;
+        var day=dt.getDate();
        var h=dt.getHours();//获取时
        var m=dt.getMinutes();//获取分
        var s=dt.getSeconds();//获取秒
