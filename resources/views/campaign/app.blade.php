@@ -61,13 +61,14 @@
                 <li id="apptest">
                     <a href="{{url('/camp/apptest')}}">App测试</a>
                 </li>
+				<li id="ys">
+				    <a href="{{url('/camp/ys/ysIndex')}}" target="_blank">YS专区</a>
+				</li>
                 @if(!empty($login))
                     <li id="u8">
                         <a href="{{url('/camp/u8')}}" target="_blank">U8专区</a>
                     </li>
-                    <li id="ys">
-                        <a href="{{url('/camp/ys/ysIndex')}}" target="_blank">YS专区</a>
-                    </li>
+                    
                 @endif
             </ul>
         </div>
