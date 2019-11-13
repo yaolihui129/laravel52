@@ -1,11 +1,10 @@
 AllUtil = function(me) {
     const reportUrl = "/ys/all";
-    return me={
-        init : function(version,integrate,startTime,endTime) {
-            me.initAll(version,integrate,startTime,endTime);
-            console.log('进入ALL');
+    return me = {
+        init: function(version, integrate, startTime, endTime) {
+            me.initAll(version, integrate, startTime, endTime);
         },
-        initAll:function (version,integrate,startTime,endTime) {
+        initAll: function(version, integrate, startTime, endTime) {
             let requestData = {
                 'version': version,
                 'integrate': integrate,
@@ -13,7 +12,7 @@ AllUtil = function(me) {
                 'endTime': endTime
             };
             // ajax通用请求：
-            CommonUtil.requestService(reportUrl + "/index" , requestData, true, "get", function(response) {
+            CommonUtil.requestService(reportUrl + "/index", requestData, true, "get", function(response) {
                 if (!response.success) {
                     console.log('ALL：没有获取到数据');
                     $("#allDoing").text('0');
@@ -26,7 +25,7 @@ AllUtil = function(me) {
                     $("#allSum").text(response.data[0].intSum)
                 }
             }, function(ex) {
-                console.log('ALL异常：'+ex);
+                console.log('ALL异常：' + ex);
             });
         }
     }

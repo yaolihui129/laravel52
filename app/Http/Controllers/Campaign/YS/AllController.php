@@ -21,11 +21,15 @@ class AllController extends Controller {
         $integrate  = $request->input('integrate');
         $startTime  = $request->input('startTime',date('Y-m-d',$time-7*24*60*60));
         $endTime    = $request->input('endTime',date('Y-m-d',$time+24*60*60));
-        $query      = new AllService();
-        $all      = $query->getAllData($version,$integrate,$startTime,$endTime);
+        // $query      = new AllService();
+        // $all      = $query->getAllData($version,$integrate,$startTime,$endTime);
+        $all = AllModel::where('intVersionID','=',$version)
+            ->where('intIntegrateID','=',$integrate)
+            ->whereBetween('dateAllDate',[$startTime,$endTime])
+            ->orderBy('created_at','desc')->first();
         $arr=array();
         if($all){
-            $data[] = $all;
+            $data[]=$all;
             $arr['success'] = 1;
             $arr['data'] = $data;
         }else{
@@ -34,26 +38,7 @@ class AllController extends Controller {
         return response($arr,200);
 	}
 
-	public function getData(Request $request){
-        $time=time();
-        $version    = $request->input('version');
-        $integrate  = $request->input('integrate');
-        $startTime  = $request->input('startTime',date('Y-m-d',$time-7*24*60*60));
-        $endTime    = $request->input('endTime',date('Y-m-d',$time+24*60*60));
-        $story = AllModel::where('intVersionID','=',$version)
-            ->where('intIntegrateID','=',$integrate)
-            ->whereBetween('dateAllDate',[$startTime,$endTime])
-            ->orderBy('created_at','desc')->first();
-        $arr=array();
-        if($story){
-            $data[] = $story;
-            $arr['success'] = 1;
-            $arr['data'] = $data;
-        }else{
-            $arr['success']=0;
-        }
-        return response($arr,200);
-    }
+	
 
     /**
      * Show the form for creating a new resource.

@@ -2,22 +2,21 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class IntegrateModel extends Model {
+class ResourceModel extends Model {
 
     /**
      * 关联到模型的数据表
-     *
+     *  定义关联数据表
      * @var string
      */
-    protected $table = 'ys_integrate';
+    protected $table = 'ys_resource';
 
     /**
      * The primary key associated with the table.
-     *
+     *  定于主键
      * @var string
      */
     protected $primaryKey = 'id';
-
     /**
      * 隐藏属性
      */

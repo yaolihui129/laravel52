@@ -12,8 +12,8 @@
 */
 
 Route::controllers ( [
-		'auth' => 'Auth\AuthController', // 认证登录
-		'password' => 'Auth\PasswordController'  // 重置密码
+    'auth' => 'Auth\AuthController', // 认证登录
+    'password' => 'Auth\PasswordController'  // 重置密码
 ] );
 Route::get ( "/", "Auth\AuthController@getIndex" ); // Index
 Route::group(['prefix'=>'camp'],function(){
@@ -46,11 +46,6 @@ Route::group ( [
 } );
 
 
-
-
-
-
-
 /**
  * YonSuite质量全景分析
  */
@@ -67,12 +62,12 @@ Route::group ( [
         Route::get('/ysIndex',"YsController@index");
         //初始化版本号
         Route::get('/getVersion',"YsController@getVersion");
-        Route::get('/getYSResource',"YsController@getYSResource");
         Route::resource('/setVersion',"YsController@setVersion");
         //初始化集成号
         Route::get('/getIntegrate',"YsController@getIntegrate");
         Route::resource('/setIntegrate',"YsController@setIntegrate");
-
+        //获取资源
+        Route::get('/getYSResource',"YsController@getYSResource");
         // 专项
         Route::group ( [
             'prefix' => 'pmdLeft'
@@ -80,7 +75,6 @@ Route::group ( [
             Route::get ( "index", "PmdLeftController@index" );
             Route::get ( "create", "PmdLeftController@create" );
             Route::resource ( "update", "PmdLeftController@update" );
-            Route::get ( "getData", "PmdLeftController@getData" );
         } );
 
         //故事点进度排行
@@ -90,7 +84,6 @@ Route::group ( [
             Route::get ( "index", "StoryController@index" );
             Route::get ( "create", "StoryController@create" );
             Route::resource ( "update", "StoryController@update" );
-            Route::get ( "getData", "StoryController@getData" );
         } );
 
         //业务流程接口执行分析
@@ -100,7 +93,6 @@ Route::group ( [
             Route::get ( "index", "NewsListLeftController@index" );
             Route::get ( "create", "NewsListLeftController@create" );
             Route::resource ( "update", "NewsListLeftController@update" );
-            Route::get ( "getData", "NewsListLeftController@getData" );
         } );
 
         //整体完成情况
@@ -110,7 +102,6 @@ Route::group ( [
             Route::get ( "index", "AllController@index" );
             Route::get ( "create", "AllController@create" );
             Route::resource ( "update", "AllController@update" );
-            Route::get ( "getData", "AllController@getData" );
         } );
 
         //水球数据
@@ -120,7 +111,6 @@ Route::group ( [
             Route::get ( "index", "WaterController@index" );
             Route::get ( "create", "WaterController@create" );
             Route::resource ( "update", "WaterController@update" );
-            Route::get ( "getData", "WaterController@getData" );
         } );
 
         //接口、api、压力、静态代码、安全性
@@ -130,7 +120,6 @@ Route::group ( [
             Route::get ( "index", "ApiController@index" );
             Route::get ( "create", "ApiController@create" );
             Route::resource ( "update", "ApiController@update" );
-            Route::get ( "getData", "ApiController@getData" );
         } );
 
         //客户验证
@@ -140,7 +129,6 @@ Route::group ( [
             Route::get ( "index", "PmdRightController@index" );
             Route::get ( "create", "PmdRightController@create" );
             Route::resource ( "update", "PmdRightController@update" );
-            Route::get ( "getData", "PmdRightController@getData" );
         } );
 
         //缺陷BUG分析
@@ -150,7 +138,6 @@ Route::group ( [
             Route::get ( "index", "BugController@index" );
             Route::get ( "create", "BugController@create" );
             Route::resource ( "update", "BugController@update" );
-            Route::get ( "getData", "BugController@getData" );
         } );
 
         //公共项目测试
@@ -160,7 +147,6 @@ Route::group ( [
             Route::get ( "index", "NewsListRightController@index" );
             Route::get ( "create", "NewsListRightController@create" );
             Route::resource ( "update", "NewsListRightController@update" );
-            Route::get ( "getData", "NewsListRightController@getData" );
         } );
 
     } );
