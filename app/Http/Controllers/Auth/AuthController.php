@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-
-
 use App\Services\UserService;
 use App\Services\VerifyService;
 use App\Services\TelEmailService;
@@ -43,7 +41,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    // protected $redirectTo = '/home';
 
     /**
      * Create a new authentication controller instance.
@@ -63,6 +61,7 @@ class AuthController extends Controller
 	public function getIndex() {
 		$user=Auth::user();
 		$pages=array();
+		// dd($user);
 		if(!empty($user)){
 			$pages["login"]="1";
 		}
@@ -70,11 +69,23 @@ class AuthController extends Controller
 	}
 	
 	public function postLogin(Request $request){
-		$email = $request->input ('chrEmail');
+
+		//TODO
+		/**
+		 * 1.调用Jira的登录Api验证用户
+		 * 2.如果通过，设置登录状态，没通过提示用户名或密码错误
+		 * 3.通过后，验证upcat的user库，存在不操作，
+		 * 4.不存在拉去Jira的用户信息到user
+		 */
+		$email = $request->input ('email');
 		$pwd = $request->input ( 'password' );
-		$res=User::where('chrEmail','=',$email)->first();
-		if (true) {
-			// 存储用户、角色session信息
+		$credentials = array (
+			"chrEmail" => $email,
+			"password" => $pwd 
+		);
+		// dd($credentials);
+		if (Auth::attempt($credentials, $request->has('remember'))) 
+		{ 
 			$this->setUserAuthSession ();
 			$array=array (
 				'success' => 1,
@@ -82,45 +93,8 @@ class AuthController extends Controller
 				'url' => "" 
 			);
 			return response ()->json ($array);
-		}
-		
+		 }	
 	}
-	
-	
-	
-	// // 重写 登录
-	// public function postLogin(Request $request) {
-	// 	try {
-	// 		$vercode = $request->input ( 'vercode' );
-	// 		$temService = new TelEmailService ();
-	// 		$msg = $temService->verImgCodeValidate ( $vercode ); // 验证图片校验码
-	// 		$msg = "";
-	// 		if (! $msg) { // 返回""则表示验证通过
-	// 			$email = $request->input ( 'email' );
-	// 			$pwd = $request->input ( 'password' );
-	// 			$credentials = array (
-	// 					"chrEmail" => $email,
-	// 					"password" => $pwd 
-	// 			);
-	// 			if ($this->auth->attempt ( $credentials, $request->has ( 'remember' ) )) {
-	// 				// 存储用户、角色session信息
-	// 				$this->setUserAuthSession ();
-	// 				$array=array (
-	// 					'success' => 1,
-	// 					'mgs' => 'ok',
-	// 					'url' => "" 
-	// 				);
-	// 				return response ()->json ($array);
-	// 			}
-	// 			// 登录失败
-	// 			return $this->registerFail ( "用户名或密码错误" );
-	// 		}
-	// 		return $this->registerFail ( $msg );
-	// 	} catch ( \Exception $e ) {
-	// 		throw $e;
-	// 	}
-	// }
-	
 	
 	/**
 	 * 成功返回的json信息
@@ -139,11 +113,11 @@ class AuthController extends Controller
 	private function setUserAuthSession() {
 		$key = "auth";
 		$user = Auth::user ();
-		// $amService = new AuthMenuService (); // 获取模块（即菜单）信息
-		// $user->menuAuths = $amService->getMenuAuths ( $user );
-		// $user->btnAuths = $amService->getButtonAuths ( $user );
-		// $user->dataAuths = $amService->getDataAuths ( $user );
-		// Session::put ( $key, $user );
+		$amService = new AuthMenuService (); // 获取模块（即菜单）信息
+		$user->menuAuths = $amService->getMenuAuths ( $user );
+		$user->btnAuths = $amService->getButtonAuths ( $user );
+		$user->dataAuths = $amService->getDataAuths ( $user );
+		Session::put ( $key, $user );
 	}
 
     /**

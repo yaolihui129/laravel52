@@ -6,13 +6,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'chrUserCode', 
+        'chrUserName', 
+        'chrEmail',
+        'password',
+        'intDeptId',
+        'intHeadId',
+        'intState' 
     ];
 
     /**
@@ -23,4 +31,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    /**
+     * 
+     */
+    public function hasManyUserMenus() {
+		return $this->belongsToMany ( 'App\Models\SysMenu', 'menu_users', 'A_UserID', 'A_MenuID' );
+	}
 }

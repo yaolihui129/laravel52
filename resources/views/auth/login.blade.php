@@ -22,7 +22,7 @@
 					<div class="loginbox">
 						<div class="login-form" id="lgform">
 							<p>
-								<input id="chrEmail" type="text" class="input username"
+								<input id="email" type="text" class="input username"
 									placeholder="邮箱" val-name="邮箱">
 							</p>
 							<p>
