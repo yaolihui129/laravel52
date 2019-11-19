@@ -19,13 +19,14 @@ AllUtil = function(me) {
                     $("#allDone").text('0');
                     $("#allSum").text('0')
                 } else {
-                    console.log(response.data);
+                    console.table(response.data);
                     $("#allDoing").text(response.data[0].intDoing);
                     $("#allDone").text(response.data[0].intDone);
                     $("#allSum").text(response.data[0].intSum)
                 }
             }, function(ex) {
                 console.log('ALL异常：' + ex);
+				console.table(ex);
             });
         }
     }

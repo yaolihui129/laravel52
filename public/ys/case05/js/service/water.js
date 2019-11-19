@@ -15,7 +15,8 @@ WaterUtil = function(me) {
             // ajax通用请求：
             CommonUtil.requestService(reportUrl + "/index" , requestData, true, "get", function(response) {
                 if (response.success) {
-                    console.log(response.data);
+                    // console.log(response.data);
+					console.table(response.data);
                     me.initWater1(response.data[0].floatWaterDevelop);
                     me.initWater2(response.data[0].floatWaterTest);
                     me.initWater3(response.data[0].floatWaterUser);
@@ -28,7 +29,8 @@ WaterUtil = function(me) {
                     me.initWater4(0);
                 }
             }, function(ex) {
-                console.log('Water异常：'+ex);
+                console.log('Water异常：');
+				console.table(ex);
             });
         },
         //water_development

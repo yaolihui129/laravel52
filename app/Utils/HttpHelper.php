@@ -6,7 +6,7 @@ class HttpHelper {
 	/**
 	 * 用file_get_contents 以get方式获取内容
 	 *
-	 * @param  $url
+	 * @param  $url        	
 	 * @return string
 	 */
 	public static function http_get_contents($url) {
@@ -30,6 +30,28 @@ class HttpHelper {
 		return $result;
 	}
 
+   public static function http_auth_get_open($url, $user = 'yaolh', $password = 'yonyou@1988')
+    {
+		//1.获取初始化URL
+        $ch = curl_init(); 
+        //2.设置curl的参数
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 500);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, "$user:$password");
+		curl_setopt($ch, CURLOPT_URL, $url);
+		//3.采集
+        $res = curl_exec($ch);
+        if (curl_errno($ch)) {
+            $res = curl_errno($ch);
+		}
+		//4.关闭
+        curl_close($ch);
+        return $res;
+    }
+
     /**
      * 用file_get_contents函数,以post方式获取url
      *
@@ -38,7 +60,12 @@ class HttpHelper {
      * @return false|string
      */
 	public static function http_post_fcontents($url, array $data) {
+		
+		/*
+		 * $data = array ( 'foo' => 'bar', 'baz' => 'boom' );
+		 */
 		$data = http_build_query ( $data );
+		// $postdata = http_build_query($data);
 		$options = array (
 				'http' => array (
 						'method' => 'POST',
@@ -86,11 +113,40 @@ class HttpHelper {
 			throw $e;
 		}
 	}
+
+
+    public static function httpAuthPost($url, $postJson, $user = 'ylh', $password = '123456')
+    {
+        //1.获取初始化URL
+        $ch = curl_init();
+        //2.设置curl的参数
+        curl_setopt($ch, CURLOPT_TIMEOUT, 500);       //设置超时时间
+        curl_setopt($ch, CURLOPT_URL, $url);          //设置抓取的url
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, "$user:$password");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "cookiefile");
+        curl_setopt($ch, CURLOPT_COOKIEJAR, "cookiefile");
+        curl_setopt($ch, CURLOPT_COOKIE, session_name() . '=' . session_id);
+        curl_setopt($ch, CURLOPT_HEADER, 0);        //设置头文件的信息作为数据流输出
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  //设置获取的信息以文件流的形式返回，而不是直接输出。
+        curl_setopt($ch, CURLOPT_POST, 1);            //设置post方式提交
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postJson);//post变量
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $res = curl_exec($ch);//3.采集
+        curl_close($ch);//4.关闭
+        if (curl_errno($ch)) {
+            $res = curl_errno($ch);
+        }
+        return $res;
+    }
 	
 	/**
 	 * 断点续传下载文件
 	 *
-	 * @param  $filePath
+	 * @param unknown $filePath        	
 	 */
 	public static function download($filePath) {
 		$filePath = iconv ( 'utf-8', 'gb2312', $filePath );
@@ -145,4 +201,3 @@ class HttpHelper {
 		exit ();
 	}
 }
-

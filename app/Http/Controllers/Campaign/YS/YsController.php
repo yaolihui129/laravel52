@@ -77,8 +77,14 @@ class YSController extends Controller {
         $time=time();
         $version    = $request->input('version');
         $integrate  = $request->input('integrate');
-        $startTime  = $request->input('startTime',date('Y-m-d',$time-7*24*60*60));
-        $endTime    = $request->input('endTime',date('Y-m-d',$time+24*60*60));
+        $startTime  = $request->input('startTime');
+        if(!$startTime){
+            $startTime = date('Y-m-d',$time-7*24*60*60);
+        }
+        $endTime    = $request->input('endTime');
+        if(!$endTime){
+            $endTime = date('Y-m-d',$time+24*60*60);
+        }
 
         /**0-all：整体进度
          * 0-all
@@ -148,7 +154,7 @@ class YSController extends Controller {
             'water'         => $water,
             'edition'       => $edition
         ];
-        return response($arr,200);
+        return response()->json($arr);
     }
 
 

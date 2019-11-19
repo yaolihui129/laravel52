@@ -1,4 +1,4 @@
-﻿$(function() {
+$(function() {
     /**
      * 定义参数变量
      */
@@ -25,7 +25,6 @@
      */
     $("#version").change(function() {
         version = $('#version').val();
-        console.log('version:' + version);
         initIntegrate(version);
         $("#integrate").val('0');
         $("#startTime").val('');
@@ -53,10 +52,6 @@
         integrate = $('#integrate').val();
         startTime = $('#startTime').val();
         endTime = $('#endTime').val();
-        console.log('version:' + version);
-        console.log('integrate:' + integrate);
-        console.log('startTime:' + startTime);
-        console.log('endTime:' + endTime);
     }
     /**
      * 执行查询渲染
@@ -90,6 +85,7 @@
         //ajax通用请求：
         CommonUtil.requestService(reportUrl + "/getVersion", '', true, "get", function(response) {
             if (response.success) {
+				console.table(response.data);
                 const el = document.getElementById('version');
                 let childs = el.childNodes;
                 if (childs) {
@@ -121,7 +117,7 @@
         //ajax通用请求：
         CommonUtil.requestService(reportUrl + "/getIntegrate", requestData, true, "get",
             function(response) {
-                console.log(response.data);
+                console.table(response.data);
                 if (response.success) {
                     const el = document.getElementById('integrate');
                     let childs = el.childNodes;
@@ -199,92 +195,4 @@
         //     currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
         //     gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。
     }
-
-    // /**
-    //  * 初始化资源组件
-    //  */
-    // function initResource(version,integrate,startTime,endTime) {
-    //     const reportUrl = "/ys";
-    //     let requestData = {
-    //         'version': version,
-    //         'integrate': integrate,
-    //         'startTime': startTime,
-    //         'endTime': endTime
-    //     };
-    //
-    //     // ajax通用请求：
-    //     CommonUtil.requestService(reportUrl + "/getYSResource" , requestData, true, "get", function(response) {
-    //         if (!response.success) {
-    //             console.log('Resource：没有获取到数据');
-    //         } else {
-    //             console.log(response.data);
-    //             // ALL相关的处理
-    //             if(response.data.all){
-    //                 $("#allDoing").text(response.data.all.intDoing);
-    //                 $("#allDone").text(response.data.all.intDone);
-    //                 $("#allSum").text(response.data.all.intSum)
-    //             }else {
-    //                 console.log('ALL：没有获取到数据');
-    //                 $("#allDoing").text('0');
-    //                 $("#allDone").text('0');
-    //                 $("#allSum").text('0')
-    //             }
-    //             // API相关的处理
-    //             if(response.data.api){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.bug){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.newListLeft){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.newListRight){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.pmdLeft){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //
-    //             if(response.data.pmdRight){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.story){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //             if(response.data.edition){
-    //
-    //             }else {
-    //
-    //             }
-    //
-    //
-    //
-    //         }
-    //     }, function(ex) {
-    //         console.log('Resource异常：'+ex);
-    //     });
-    //
-    // }
 });

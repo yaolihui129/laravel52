@@ -21,6 +21,6 @@ class VersionModel extends Model {
     /**
      * 隐藏属性
      */
-    protected $hidden = ['created_by','updated_by','created_at','updated_at'];
+    protected $hidden = ['intProduct','created_by','updated_by','created_at','updated_at'];
 
 }

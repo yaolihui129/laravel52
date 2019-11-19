@@ -34,7 +34,7 @@ class PmdRightService {
             }
         }
 
-        $sql ="select a.chrPmdRightKey,a.datePmdRightDate,a.chrPmdRightName,a.floatPmdRightSpeed,a.textPmdRightJson
+        $sql ="select a.chrPmdRightKey,a.datePmdRightDate,a.chrPmdRightName,a.floatPmdRightSpeed
             from ys_pmdright a
             where a.intVersionID = '$version'
             and a.intIntegrateID = '$integrate'

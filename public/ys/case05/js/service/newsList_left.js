@@ -17,7 +17,7 @@ NewsListLeftUtil = function(me) {
                 const el  = document.getElementById('left_ul');
                 let childs = el.childNodes;
                 if (response.success) {
-                    console.log(response.data);
+                    console.table(response.data);
                     if(childs){
                         for(let i = childs .length - 1; i >= 0; i--) {
                             el.removeChild(childs[i]);
@@ -72,7 +72,8 @@ NewsListLeftUtil = function(me) {
                     }
                 }
             }, function(ex) {
-                console.log("newsListLeft异常"+ex);
+                console.log("newsListLeft异常");
+				console.table(ex);
             });
         },
         initNewsListLeft:function () {
@@ -101,9 +102,6 @@ NewsListLeftUtil = function(me) {
             $('#left_ul').css('height','');
             $('#left_ul').css('overflow-y','');
             console.log('进入业务流程接口');
-
-
-
         }
     }
 }();

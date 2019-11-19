@@ -18,7 +18,8 @@ PmdRightUtil = function(me) {
             // ajax通用请求：
             CommonUtil.requestService(reportUrl + "/index" , requestData, true, "get", function(response) {
                 if (response.success) {
-                    console.log(response.data);
+                    // console.log(response.data);
+					console.table(response.data);
                     if(childs){
                         for(let i = childs .length - 1; i >= 0; i--) {
                             el.removeChild(childs[i]);
@@ -82,7 +83,8 @@ PmdRightUtil = function(me) {
                     }
                 }
             }, function(ex) {
-                console.log('pmdRight异常：'+ex);
+                console.log('pmdRight异常：');
+				console.table(ex);
             });
         },
         initPmdRight:function () {

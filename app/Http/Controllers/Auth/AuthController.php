@@ -41,7 +41,9 @@ class AuthController extends Controller
      *
      * @var string
      */
-    // protected $redirectTo = '/home';
+	// protected $redirectTo = '/';
+	protected $redirectPath = '/desktop';
+    protected $loginPath = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -61,7 +63,6 @@ class AuthController extends Controller
 	public function getIndex() {
 		$user=Auth::user();
 		$pages=array();
-		// dd($user);
 		if(!empty($user)){
 			$pages["login"]="1";
 		}
@@ -83,17 +84,20 @@ class AuthController extends Controller
 			"chrEmail" => $email,
 			"password" => $pwd 
 		);
-		// dd($credentials);
-		if (Auth::attempt($credentials, $request->has('remember'))) 
+		$remember=$request->has('remember');
+		if (Auth::attempt($credentials,$remember )) 
 		{ 
 			$this->setUserAuthSession ();
 			$array=array (
 				'success' => 1,
 				'mgs' => 'ok',
-				'url' => "" 
+				'url' => "/" 
 			);
 			return response ()->json ($array);
-		 }	
+		 }else{
+			return $this->registerFail ( "用户名或密码错误" );	
+		 }
+		 
 	}
 	
 	/**
@@ -115,8 +119,8 @@ class AuthController extends Controller
 		$user = Auth::user ();
 		$amService = new AuthMenuService (); // 获取模块（即菜单）信息
 		$user->menuAuths = $amService->getMenuAuths ( $user );
-		$user->btnAuths = $amService->getButtonAuths ( $user );
-		$user->dataAuths = $amService->getDataAuths ( $user );
+		// $user->btnAuths = $amService->getButtonAuths ( $user );
+		// $user->dataAuths = $amService->getDataAuths ( $user );
 		Session::put ( $key, $user );
 	}
 

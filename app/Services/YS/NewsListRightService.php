@@ -34,7 +34,7 @@ class NewsListRightService {
             }
         }
 
-        $sql ="select a.chrNewListRightKey,a.dateNewListRightDate,a.chrNewListRightName,a.floatNewListRightSpeed,a.textNewListRightJson
+        $sql ="select a.chrNewListRightKey,a.dateNewListRightDate,a.chrNewListRightName,a.floatNewListRightSpeed
             from ys_newslistright a
             where a.intVersionID = '$version'
             and a.intIntegrateID = '$integrate'

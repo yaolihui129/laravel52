@@ -18,7 +18,7 @@ BUGUtil = function(me) {
                     let dataYAxis=[];
                     let dataSeries=[];
                     if (response.success) {
-                        console.log(response.data);
+                        console.table(response.data);
                         for (let i = 0; i <response.data.length ; i++) {
                             dataYAxis.push(response.data[i].chrBugModel);
                             dataSeries.push(response.data[i].intBugSum);
@@ -34,6 +34,7 @@ BUGUtil = function(me) {
                 },
                 function(ex) {
                     console.log('BUG，异常:'+ ex);
+					console.table(ex);
                 }
             );
         },

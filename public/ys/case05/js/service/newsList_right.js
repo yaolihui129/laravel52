@@ -17,8 +17,8 @@ NewsListRightUtil = function(me) {
                 const el  = document.getElementById('right_ul');
                 let childs = el.childNodes;
                 if (response.success) {
-                    console.log(response.data);
-
+                    // console.log(response.data);
+					console.table(response.data);
                     if(childs){
                         for(let i = childs .length - 1; i >= 0; i--) {
                             el.removeChild(childs[i]);
@@ -73,7 +73,8 @@ NewsListRightUtil = function(me) {
                     }
                 }
             }, function(ex) {
-                console.log('newsListRight异常:'+ex);
+                console.log('newsListRight异常:');
+				console.table(ex);
             });
         },
         initNewsListRight:function () {

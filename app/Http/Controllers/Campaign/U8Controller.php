@@ -9,11 +9,9 @@ use App\Http\Controllers\Controller;
 
 class U8Controller extends Controller
 {
-    //
 	
 	public function index(Request $request)
 	{
-		//
 		$user=Auth::user();
 		$pages=array();
 		if(!empty($user)){

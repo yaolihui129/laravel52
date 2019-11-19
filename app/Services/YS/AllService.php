@@ -19,7 +19,7 @@ class AllService {
        
 		$str="AND a.dateAllDate BETWEEN' $startTime' and '$endTime' ";
 
-        $sql ="select a.dateAllDate,a.intSum,a.intDone,a. intDoing,a.textAllJson
+        $sql ="select a.dateAllDate,a.intSum,a.intDone,a. intDoing
             from ys_all a
             where a.intVersionID = '$version'
             and a.intIntegrateID = '$integrate'

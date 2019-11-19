@@ -39,7 +39,7 @@ class ApiService {
             intStaticSum,intStaticFind,intStaticResolved,
             intSafetySum,intSafetyFind,intSafetyResolved,
             intApiSum,intApiFind,intApiResolved,
-            intUISum,intUIFind,intUIResolved,a.textJson 
+            intUISum,intUIFind,intUIResolved 
             from ys_api a
             where a.intVersionID = '$version'
             and a.intIntegrateID = '$integrate'

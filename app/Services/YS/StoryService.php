@@ -33,7 +33,7 @@ class StoryService {
             }
         }
 
-        $sql="SELECT a.dateStoryDate,a.chrStoryKey,a.chrStoryName,a.floatStorySpeed,a.textStroyJson 
+        $sql="SELECT a.dateStoryDate,a.chrStoryKey,a.chrStoryName,a.floatStorySpeed
             FROM ys_story a
             WHERE a.intVersionID = '$version'
             AND a.intIntegrateID = '$integrate'

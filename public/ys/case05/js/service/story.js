@@ -17,7 +17,8 @@ StoryUtil = function(me) {
                     let dataYAxis=[];
                     let dataSeries=[];
                     if (response.success) {
-                        console.log(response.data);
+                        // console.log(response.data);
+						console.table(response.data);
                         for (let i = 0; i <response.data.length ; i++) {
                             dataYAxis.push(response.data[i].chrStoryName);
                             dataSeries.push(response.data[i].floatStorySpeed.toFixed(4) * 100);
@@ -34,7 +35,8 @@ StoryUtil = function(me) {
                     me.initStory(dataYAxis,dataSeries);
                 },
                 function(ex) {
-                    console.log('story，异常:'+ ex);
+                    console.log('story，异常:');
+					console.table(ex);
                 }
             );
         },

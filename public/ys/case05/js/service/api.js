@@ -37,7 +37,7 @@ ApiUtil = function(me) {
                     $("#uiDate1").text('[0-0]');
                     $("#uiDate2").text('[0-0]')
                 } else {
-                    console.log(response.data);
+                    console.table(response.data);
                     $("#pressureFind").text(response.data[0].intPressureFind);
                     $("#pressureResolve").text(response.data[0].intPressureResolved);
 
@@ -61,7 +61,8 @@ ApiUtil = function(me) {
 
                 }
             }, function(ex) {
-                console.log('Api异常：'+ex);
+                console.log('Api异常');
+				console.table(ex);
             });
         }
     }
