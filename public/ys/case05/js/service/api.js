@@ -3,7 +3,6 @@ ApiUtil = function(me) {
     return me={
         init : function(version,integrate,startTime,endTime) {
             me.initApi(version,integrate,startTime,endTime);
-            console.log('进入API');
         },
         initApi:function (version,integrate,startTime,endTime) {
             let requestData = {

@@ -87,7 +87,7 @@ PmdLeftUtil = function(me) {
 
             }, function(ex) {
                 console.log('pmdLeft异常');
-				console.table(response.data);
+				console.table(ex);
             });
         },
         initPmdLeft:function () {
@@ -106,7 +106,6 @@ PmdLeftUtil = function(me) {
             $('.dowebok_left').css('background-color','transparent');
             $('.dowebok_left a').css('font-size','20px');
             $('.dowebok_left .str_move').css('margin-top','5%');
-            console.log('进入专项进度');
         }
     }
 }();

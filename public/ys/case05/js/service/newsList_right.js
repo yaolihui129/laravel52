@@ -17,7 +17,6 @@ NewsListRightUtil = function(me) {
                 const el  = document.getElementById('right_ul');
                 let childs = el.childNodes;
                 if (response.success) {
-                    // console.log(response.data);
 					console.table(response.data);
                     if(childs){
                         for(let i = childs .length - 1; i >= 0; i--) {
@@ -102,7 +101,6 @@ NewsListRightUtil = function(me) {
             });
             $('#right_ul').css('height','');
             $('#right_ul').css('overflow-y','');
-            console.log('进入公共项目测试分析');
         }
     }
 }();

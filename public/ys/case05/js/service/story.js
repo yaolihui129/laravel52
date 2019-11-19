@@ -17,25 +17,20 @@ StoryUtil = function(me) {
                     let dataYAxis=[];
                     let dataSeries=[];
                     if (response.success) {
-                        // console.log(response.data);
 						console.table(response.data);
                         for (let i = 0; i <response.data.length ; i++) {
                             dataYAxis.push(response.data[i].chrStoryName);
                             dataSeries.push(response.data[i].floatStorySpeed.toFixed(4) * 100);
                         }
-                        // dataYAxis=["营销管理","采购库存",'财务管理',"人力资源",'协同协同','数字化建模'];
-                        // dataSeries=[87, 48, 76, 66, 97, 100];
                     }else {
                         console.log('story，未获取到值');
                         dataYAxis=["营销管理","采购库存",'财务管理',"人力资源",'协同协同','数字化建模'];
                         dataSeries=[0, 0, 0, 0, 0, 0];
                     }
-                    console.log(dataYAxis);
-                    console.log(dataSeries);
                     me.initStory(dataYAxis,dataSeries);
                 },
                 function(ex) {
-                    console.log('story，异常:');
+                    console.log('story异常');
 					console.table(ex);
                 }
             );
@@ -170,8 +165,6 @@ StoryUtil = function(me) {
             window.addEventListener("resize", function () {
                 myChart.resize();
             });
-            console.log('进入故事点排行');
-
         }
     }
 }();

@@ -17,8 +17,7 @@ PmdRightUtil = function(me) {
             };
             // ajax通用请求：
             CommonUtil.requestService(reportUrl + "/index" , requestData, true, "get", function(response) {
-                if (response.success) {
-                    // console.log(response.data);
+                if (response.success) {                 
 					console.table(response.data);
                     if(childs){
                         for(let i = childs .length - 1; i >= 0; i--) {
@@ -83,7 +82,7 @@ PmdRightUtil = function(me) {
                     }
                 }
             }, function(ex) {
-                console.log('pmdRight异常：');
+                console.log('pmdRight异常');
 				console.table(ex);
             });
         },
@@ -103,7 +102,6 @@ PmdRightUtil = function(me) {
             $('.dowebok_right').css('background-color','transparent');
             $('.dowebok_right a').css('font-size','20px');
             $('.dowebok_right .str_move').css('margin-top','5%');
-            console.log('进入客户验证');
         }
     }
 }();

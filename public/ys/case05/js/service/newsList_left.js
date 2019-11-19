@@ -101,7 +101,6 @@ NewsListLeftUtil = function(me) {
             });
             $('#left_ul').css('height','');
             $('#left_ul').css('overflow-y','');
-            console.log('进入业务流程接口');
         }
     }
 }();

@@ -25,7 +25,7 @@ AllUtil = function(me) {
                     $("#allSum").text(response.data[0].intSum)
                 }
             }, function(ex) {
-                console.log('ALL异常：' + ex);
+                console.log('ALL异常');
 				console.table(ex);
             });
         }

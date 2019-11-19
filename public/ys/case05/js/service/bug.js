@@ -3,7 +3,6 @@ BUGUtil = function(me) {
     return me={
         init : function(version,integrate,startTime,endTime) {
             me.bug(version,integrate,startTime,endTime);
-            console.log('进入BUG');
         },
         bug : function(version,integrate,startTime,endTime) {
             let requestData = {
@@ -28,12 +27,10 @@ BUGUtil = function(me) {
                         dataYAxis= ['数字化建模', '社交协同', '人力资源', '财务管理', '采购库存', '营销管理'];
                         dataSeries=[0, 0, 0, 0, 0, 0];
                     }
-                    console.log(dataYAxis);
-                    console.log(dataSeries);
                     me.initBug(dataYAxis,dataSeries);
                 },
                 function(ex) {
-                    console.log('BUG，异常:'+ ex);
+                    console.log('BUG异常');
 					console.table(ex);
                 }
             );
