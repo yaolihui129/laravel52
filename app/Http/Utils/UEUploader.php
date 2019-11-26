@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace App\Http\Utils;
 
 class UEUploader {
 	private $fileField; // 文件域名

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace App\Http\Utils;
 
 class RedisHelper {
 	private static $dest = "10.1.219.19"; // 尽量不要改为localhost 否则每次连接都很慢

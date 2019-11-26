@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils;
+namespace App\Http\Utils;
 
 class ZipArchiveHelper {
 	private static $instance = null;
