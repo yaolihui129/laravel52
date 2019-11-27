@@ -359,7 +359,7 @@
                 </div>
                 {{--2.倒计时及读条--}}
                 <div class="boxall" style="height: 3.2rem">
-                    <div style="color: whitesmoke;font-size: 20px;margin-top: -8%">倒计时：16.3天</div>
+                    <div id="edition" style="color: whitesmoke;font-size: 20px;margin-top: -8%">倒计时：16.3天</div>
                     <div class="row">
                         <div class="col-xs-3 water" id="water_develop"></div>
                         <div class="col-xs-3 water" id="water_test"></div>

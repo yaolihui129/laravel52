@@ -1,8 +1,9 @@
 BUGUtil = function(me) {
     const reportUrl = "/ys/BUG";
     return me={
-        init : function(version,integrate,startTime,endTime) {
+        init : function(version,integrate,startTime,endTime,res) {
             me.bug(version,integrate,startTime,endTime);
+            // me.newBug(res);
         },
         bug : function(version,integrate,startTime,endTime) {
             let requestData = {
@@ -35,10 +36,27 @@ BUGUtil = function(me) {
                 }
             );
         },
+
+        newBug:function(res){
+            let dataYAxis=[];
+            let dataSeries=[];
+            if (res.data) {
+                console.table(res.data);
+                for (let i = 0; i <res.data.length ; i++) {
+                    dataYAxis.push(res.data[i].chrBugModel);
+                    dataSeries.push(res.data[i].intBugSum);
+                }
+            }else {
+                console.log('BUG，未获取到值');
+                dataYAxis= ['数字化建模', '社交协同', '人力资源', '财务管理', '采购库存', '营销管理'];
+                dataSeries=[0, 0, 0, 0, 0, 0];
+            }
+            me.initBug(dataYAxis,dataSeries);
+        },
         initBug:function (dataYAxis,dataSeries) {
-            // 基于准备好的dom，初始化echarts实例
-            var myChart = echarts.init(document.getElementById('echart5'));
-            var option = {
+            // 初始化echarts实例
+            const myChart = echarts.init(document.getElementById('echart5'));
+            let option = {
                 //  backgroundColor: '#00265f',
                 tooltip: {
                     trigger: 'axis',
@@ -109,7 +127,7 @@ BUGUtil = function(me) {
                 }],
                 series: [{
                     type: 'bar',
-                    data:dataSeries,
+                    data: dataSeries,
                     barWidth: '35%', //柱子宽度
                     // barGap: 1, //柱子之间间距
                     itemStyle: {

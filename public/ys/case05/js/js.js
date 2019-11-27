@@ -18,8 +18,16 @@ $(function() {
         //4. 时间戳初始化
         getTime();
         //5. 执行查询渲染
-        search();
+        getYSResource(version, integrate, startTime, endTime);
     }
+    /**
+     * 当点击查询按钮时
+     */
+    $('#search').on('click', function() {
+        getParams();
+        getYSResource(version, integrate, startTime, endTime);
+    });
+
     /**
      * 当版本号变化时，重置集成号和时间
      */
@@ -37,13 +45,7 @@ $(function() {
         $("#startTime").val('');
         $("#endTime").val('');
     });
-    /**
-     * 当点击查询按钮时
-     */
-    $('#search').on('click', function() {
-        getParams();
-        search();
-    });
+
     /**
      * 获取版本号，集成号，开始时间，结束时间
      */
@@ -52,15 +54,6 @@ $(function() {
         integrate = $('#integrate').val();
         startTime = $('#startTime').val();
         endTime = $('#endTime').val();
-    }
-    /**
-     * 执行查询渲染
-     */
-    function search() {
-        //0-0 获取资源
-        getYSResource(version, integrate, startTime, endTime);
-
-
     }
     /**
      * 初始化版本号
@@ -147,33 +140,32 @@ $(function() {
         //ajax通用请求
         CommonUtil.requestService(reportUrl + "/getYSResource", requestData, true, "get", function(response) {
             if (response.success) {
-                // console.table($.parseJSON(response.data.api));
                 // console.table($.parseJSON(response.data.bug));
                 // console.table($.parseJSON(response.data.newListLeft));
                 // console.table($.parseJSON(response.data.newListRight));
                 // console.table($.parseJSON(response.data.pmdLeft));
                 // console.table($.parseJSON(response.data.pmdRight));
                 // console.table($.parseJSON(response.data.story));
-                // console.table($.parseJSON(response.data.water));
-                // console.log(response.data.edition);
                 //1-1专项 pmd_left();
-                PmdLeftUtil.init(version, integrate, startTime, endTime);
+                PmdLeftUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.pmdLeft));
                 //1-2故事点进度排行
-                StoryUtil.init(version, integrate, startTime, endTime);
+                StoryUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.story));
                 //1-3业务流程接口执行分析 newsList_left();
-                NewsListLeftUtil.init(version, integrate, startTime, endTime);
+                NewsListLeftUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.newListLeft));
                 //2-1整体完成情况 all();
                 AllUtil.init($.parseJSON(response.data.all));
-                //2-2水球数据、倒计时
-                WaterUtil.init(version, integrate, startTime, endTime);
+                //2-2倒计时
+                edition(response.data.edition);
+                //2-2水球数据
+                WaterUtil.init($.parseJSON(response.data.water));
                 //2-3接口、UI、压力、静态代码、安全性
                 ApiUtil.init($.parseJSON(response.data.api));
                 //3-1客户验证 pmd_right();
-                PmdRightUtil.init(version, integrate, startTime, endTime);
+                PmdRightUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.pmdRight));
                 //3-2缺陷BUG分析
-                BUGUtil.init(version, integrate, startTime, endTime);
+                BUGUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.bug));
                 //3-3公共项目测试分析  newsList_right();
-                NewsListRightUtil.init(version, integrate, startTime, endTime);
+                NewsListRightUtil.init(version, integrate, startTime, endTime,$.parseJSON(response.data.newListRight));
             } else {
                 console.log('getYSResource，未获取到值');
             }
@@ -184,18 +176,22 @@ $(function() {
     }
 
     /**
+     * 渲染倒计时数据
+     * @param res
+     */
+    function edition(res) {
+        if (!res) {
+            console.log('没有倒计时数据');
+            $("#edition").text('倒计时：XX.X天');
+        }else {
+            $("#edition").text(res);
+        }
+    }
+
+    /**
      * 初始化时间组件
      */
     function getTime() {
-        // let dt = new Date();
-        // let y = dt.getFullYear();
-        // let mt = dt.getMonth() + 1;
-        // let day = dt.getDate();
-        // let nextDay=dt.getDate()+1;
-        // let startTime=y + "-" + mt + "-" + day;
-        // let endTime=y + "-" + mt + "-" + nextDay;
-        // $( "#startTime" ).val(startTime);
-        // $( "#endTime" ).val(endTime);
         $("#startTime").change(function() {
             $("#endTime").val('');
         });
@@ -223,17 +219,6 @@ $(function() {
             },
             monthNamesShort: ['01月', '02月', '03月', '04月', '05月', '06月', '07月', '08月', '09月', '10月', '11月', '12月']
         });
-        //参数
-        //     showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
-        //     minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
-        //     maxDate: +17,//最大日期，同上
-        //     defaultDate : +4, //默认日期，同上
-        //     duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
-        //     firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
-        //     nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
-        //     prevText : '上一月',//设置“上个月”链接的显示文字。
-        //     showButtonPanel: true,//是否显示按钮面板
-        //     currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
-        //     gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。
+
     }
 });
