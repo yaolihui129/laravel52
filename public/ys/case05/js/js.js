@@ -59,24 +59,7 @@ $(function() {
     function search() {
         //0-0 获取资源
         getYSResource(version, integrate, startTime, endTime);
-        //1-1专项 pmd_left();
-        PmdLeftUtil.init(version, integrate, startTime, endTime);
-        //1-2故事点进度排行
-        StoryUtil.init(version, integrate, startTime, endTime);
-        //1-3业务流程接口执行分析 newsList_left();
-        NewsListLeftUtil.init(version, integrate, startTime, endTime);
-        //2-1整体完成情况 all();
-        AllUtil.init(version, integrate, startTime, endTime);
-        //2-2水球数据、倒计时
-        WaterUtil.init(version, integrate, startTime, endTime);
-        //2-3接口、UI、压力、静态代码、安全性
-        ApiUtil.init(version, integrate, startTime, endTime);
-        //3-1客户验证 pmd_right();
-        PmdRightUtil.init(version, integrate, startTime, endTime);
-        //3-2缺陷BUG分析
-        BUGUtil.init(version, integrate, startTime, endTime);
-        //3-3公共项目测试分析  newsList_right();
-        NewsListRightUtil.init(version, integrate, startTime, endTime);
+
 
     }
     /**
@@ -164,16 +147,33 @@ $(function() {
         //ajax通用请求
         CommonUtil.requestService(reportUrl + "/getYSResource", requestData, true, "get", function(response) {
             if (response.success) {
-                console.table($.parseJSON(response.data.all));
-                console.table($.parseJSON(response.data.api));
-                console.table($.parseJSON(response.data.bug));
-                console.table($.parseJSON(response.data.newListLeft));
-                console.table($.parseJSON(response.data.newListRight));
-                console.table($.parseJSON(response.data.pmdLeft));
-                console.table($.parseJSON(response.data.pmdRight));
-                console.table($.parseJSON(response.data.story));
-                console.table($.parseJSON(response.data.water));
-                console.log(response.data.edition);
+                // console.table($.parseJSON(response.data.api));
+                // console.table($.parseJSON(response.data.bug));
+                // console.table($.parseJSON(response.data.newListLeft));
+                // console.table($.parseJSON(response.data.newListRight));
+                // console.table($.parseJSON(response.data.pmdLeft));
+                // console.table($.parseJSON(response.data.pmdRight));
+                // console.table($.parseJSON(response.data.story));
+                // console.table($.parseJSON(response.data.water));
+                // console.log(response.data.edition);
+                //1-1专项 pmd_left();
+                PmdLeftUtil.init(version, integrate, startTime, endTime);
+                //1-2故事点进度排行
+                StoryUtil.init(version, integrate, startTime, endTime);
+                //1-3业务流程接口执行分析 newsList_left();
+                NewsListLeftUtil.init(version, integrate, startTime, endTime);
+                //2-1整体完成情况 all();
+                AllUtil.init($.parseJSON(response.data.all));
+                //2-2水球数据、倒计时
+                WaterUtil.init(version, integrate, startTime, endTime);
+                //2-3接口、UI、压力、静态代码、安全性
+                ApiUtil.init($.parseJSON(response.data.api));
+                //3-1客户验证 pmd_right();
+                PmdRightUtil.init(version, integrate, startTime, endTime);
+                //3-2缺陷BUG分析
+                BUGUtil.init(version, integrate, startTime, endTime);
+                //3-3公共项目测试分析  newsList_right();
+                NewsListRightUtil.init(version, integrate, startTime, endTime);
             } else {
                 console.log('getYSResource，未获取到值');
             }
