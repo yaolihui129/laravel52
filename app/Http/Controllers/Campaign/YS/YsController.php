@@ -71,8 +71,8 @@ class YSController extends Controller {
 
 
     public function getYSResource(Request $request){
-        /**初始换开始时间和结束时间
-         * 
+        /**
+         * 初始换开始时间和结束时间
          */
         $time=time();
         $version    = $request->input('version');

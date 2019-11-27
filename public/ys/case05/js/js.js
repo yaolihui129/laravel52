@@ -57,6 +57,8 @@ $(function() {
      * 执行查询渲染
      */
     function search() {
+        //0-0 获取资源
+        getYSResource(version, integrate, startTime, endTime);
         //1-1专项 pmd_left();
         PmdLeftUtil.init(version, integrate, startTime, endTime);
         //1-2故事点进度排行
@@ -75,7 +77,7 @@ $(function() {
         BUGUtil.init(version, integrate, startTime, endTime);
         //3-3公共项目测试分析  newsList_right();
         NewsListRightUtil.init(version, integrate, startTime, endTime);
-        // initResource(version,integrate,startTime,endTime);
+
     }
     /**
      * 初始化版本号
@@ -108,6 +110,7 @@ $(function() {
     }
     /**
      * 初始化集成号
+     * @param version
      */
     function initIntegrate(version) {
         const reportUrl = "/ys";
@@ -142,6 +145,44 @@ $(function() {
                 console.log('integrate异常：' + ex);
             });
     }
+
+    /**
+     * 获取资源
+     * @param version
+     * @param integrate
+     * @param startTime
+     * @param endTime
+     */
+    function getYSResource(version, integrate, startTime, endTime) {
+        const reportUrl = "/ys";
+        let requestData = {
+            'version': version,
+            'integrate': integrate,
+            'startTime': startTime,
+            'endTime': endTime
+        };
+        //ajax通用请求
+        CommonUtil.requestService(reportUrl + "/getYSResource", requestData, true, "get", function(response) {
+            if (response.success) {
+                console.table($.parseJSON(response.data.all));
+                console.table($.parseJSON(response.data.api));
+                console.table($.parseJSON(response.data.bug));
+                console.table($.parseJSON(response.data.newListLeft));
+                console.table($.parseJSON(response.data.newListRight));
+                console.table($.parseJSON(response.data.pmdLeft));
+                console.table($.parseJSON(response.data.pmdRight));
+                console.table($.parseJSON(response.data.story));
+                console.table($.parseJSON(response.data.water));
+                console.log(response.data.edition);
+            } else {
+                console.log('getYSResource，未获取到值');
+            }
+        }, function(ex) {
+            console.log('getYSResource:Error');
+            console.table(ex);
+        });
+    }
+
     /**
      * 初始化时间组件
      */
