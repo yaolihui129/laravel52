@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>YonSuite质量全景分析</title>
+    <title>YonSuite</title>
     <script type="text/javascript" src="{{url('ys/case05/js/jquery.js')}}"></script>
     <link rel="stylesheet" href="{{url('ys/case05/css/comon0.css')}}">
     <link rel="stylesheet" href="{{url('ys/case05/css/bootstrap.min.css')}}"/>
@@ -53,7 +53,7 @@
     {{--版本号--}}
     <div style="padding-top: 5%;padding-left: 3%">
         <p>
-            <span style="color:whitesmoke">版本号:</span>
+            <span style="color:whitesmoke"> <a href="{{url('/camp/version')}}" target="_blank">版本号:</a></span>
             <select id="version" style="height:18px;width:150px" class="head_list">
                 <option value="3">U8Cloud3.0 V1.0</option>
             </select>
@@ -64,7 +64,7 @@
     {{--集成号--}}
     <div style="padding-left: 17%;margin-top: -2.3%">
         <p >
-            <span style="color:whitesmoke">集成号:</span>
+            <span style="color:whitesmoke"> 集成号:</span>
             <select id="integrate" style="height:18px;width:150px" class="head_list">
                 <option value="0">请选择</option>
             </select>

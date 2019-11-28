@@ -29,20 +29,31 @@ Route::get ( '/verify/image', 'Verify\VerifyController@index' ); // 图片验证
 Route::group ( [
     'prefix'=>'camp',
     'namespace' => 'Campaign',
-    'middleware' => 'auth'
+//    'middleware' => 'auth'
 ], function () {
-    Route:: resource( "/ult", "U8Controller@ult" );
-    Route:: resource( "/mtt", "U8Controller@mtt" );
-    Route:: resource( "/sett", "U8Controller@sett" );
-    Route:: resource( "/dult", "U8Controller@dult" );
-    Route:: resource( "/pct", "U8Controller@pct" );
-    Route:: resource( "/js", "U8Controller@js" );
-    Route:: resource( "/lsbcx", "U8Controller@lsbcx" );
-    Route:: resource( "/gdi", "U8Controller@gdi" );
-    Route:: resource( "/sjkjgdb", "U8Controller@sjkjgdb" );
-    Route:: resource( "/wj", "U8Controller@wj" );
-    Route:: resource( "/xn", "U8Controller@xn" );
-    Route:: resource( "/ylzx", "U8Controller@ylzx" );
+    Route:: get( "/ult", "U8Controller@ult" );
+    Route:: get( "/mtt", "U8Controller@mtt" );
+    Route:: get( "/sett", "U8Controller@sett" );
+    Route:: get( "/dult", "U8Controller@dult" );
+    Route:: get( "/pct", "U8Controller@pct" );
+    Route:: get( "/js", "U8Controller@js" );
+    Route:: get( "/lsbcx", "U8Controller@lsbcx" );
+    Route:: get( "/gdi", "U8Controller@gdi" );
+    Route:: get( "/sjkjgdb", "U8Controller@sjkjgdb" );
+    Route:: get( "/wj", "U8Controller@wj" );
+    Route:: get( "/xn", "U8Controller@xn" );
+    Route:: get( "/ylzx", "U8Controller@ylzx" );
+
+    //版本号
+    Route::get('/version', 'VersionController@index');
+    Route::match(['get','post'],'version/{version}/edit','VersionController@edit')->where('version','[0-9]+');
+    Route::match(['get','post'],'version/create','VersionController@create');
+    Route::get('version/{version}/del','VersionController@destroy')->where('version','[0-9]+');
+    //集成号
+    Route::get('/integtera/version/{version}', 'IntegrateController@index')->where('version','[0-9]+');
+    Route::match(['get','post'],'integrate/{integrate}/edit','IntegrateController@edit')->where('integrate','[0-9]+');
+    Route::match(['get','post'],'integrate/create','IntegrateController@create');
+    Route::get('integrate/{integrate}/del','IntegrateController@destroy')->where('integrate','[0-9]+');
 } );
 
 
@@ -60,13 +71,13 @@ Route::group ( [
         //初始化页面
         Route::get('/ysIndex',"YsController@index");
         //初始化版本号
-        Route::get('/getVersion',"YsController@getVersion");
-        Route::resource('/setVersion',"YsController@setVersion");
+        Route::get('/getVersion',"VersionController@getVersion");
         //初始化集成号
-        Route::get('/getIntegrate',"YsController@getIntegrate");
-        Route::resource('/setIntegrate',"YsController@setIntegrate");
+        Route::get('/getIntegrate',"IntegrateController@getIntegrate");
         //获取资源
         Route::get('/getYSResource',"YsController@getYSResource");
+
+
     } );
 } );
 

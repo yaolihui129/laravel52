@@ -18,6 +18,8 @@ class VersionModel extends Model {
      */
     protected $primaryKey = 'id';
 
+    protected $fillable = ['chrVersionKey', 'chrVersionName','chrVersionDescribe','IssueDate'];//开启白名单字段
+
     /**
      * 隐藏属性
      */

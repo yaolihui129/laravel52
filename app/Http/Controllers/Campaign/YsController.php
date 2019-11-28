@@ -1,9 +1,9 @@
-<?php namespace App\Http\Controllers\Campaign;
+<?php
+namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign\YS\ResourceModel;
 use App\Models\Campaign\YS\VersionModel;
-use App\Models\Campaign\YS\IntegrateModel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Excel;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class YSController extends Controller {
 
@@ -30,44 +29,6 @@ class YSController extends Controller {
         return view("campaign.case05.index")->with($pages);
 	}
 
-    /**
-     * @return ResponseAlias
-     */
-	public  function getVersion()
-    {
-        $version = VersionModel::all();
-        $arr=array();
-        if($version){
-            $data = $version;
-            $arr['success'] = 1;
-            $arr['data'] = $data;
-        }else{
-            $arr['success']=0;
-        }
-        return response($arr,200);
-    }
-
-
-    /**
-     * @param Request $request
-     * @return false|string
-     */
-    public  function getIntegrate(Request $request)
-    {
-
-        $version = $request->input ( 'version');
-        $integrate = IntegrateModel::where('intVersionID','=',$version)->get();
-        $arr=array();
-        if($integrate){
-            $data = $integrate;
-            $arr['success'] = 1;
-            $arr['data'] = $data;
-        }else{
-            $arr['success']=0;
-        }
-        return response($arr,200);
-    }
-
 
     public function getYSResource(Request $request){
         /**
@@ -85,40 +46,40 @@ class YSController extends Controller {
             $endTime = date('Y-m-d',$time+24*60*60);
         }
 
-        /**0-all：整体进度
-         * 0-all
+        /**
+         * 0-all：整体进度
          */
         $all        = $this->getResInfo('0',$version,$integrate,$startTime,$endTime);
-        /**1-api
+        /**
          * 1-api
          */
         $api        = $this->getResInfo('1',$version,$integrate,$startTime,$endTime);
-        /**2-bug
+        /**
          * 2-bug
          */
         $bug        = $this->getResInfo('2',$version,$integrate,$startTime,$endTime);
-        /**3-listLeft
+        /**
          * 3-listLeft
          */
         $ListLeft   = $this->getResInfo('3',$version,$integrate,$startTime,$endTime);
-        /**4-listRight
+        /**
          * 4-listRight
          */
         $ListRight  = $this->getResInfo('4',$version,$integrate,$startTime,$endTime);
-        /**5-pmdLeft
+        /**
          * 5-pmdLeft
          */
         $pmdLeft    = $this->getResInfo('5',$version,$integrate,$startTime,$endTime);
-        /**6-pmdRight
+        /**
          * 6-pmdRight
          */
         $pmdRight   = $this->getResInfo('6',$version,$integrate,$startTime,$endTime);
-        /**故事点信息
-         * 7-story
+        /**
+         * 7-story故事点
          */
         $story      = $this->getResInfo('7',$version,$integrate,$startTime,$endTime);
-        /**水球信息
-         * 8-water
+        /**
+         * 8-water水球信息
          */
         $water      = $this->getResInfo('8',$version,$integrate,$startTime,$endTime);
         
