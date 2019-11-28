@@ -701,13 +701,4 @@
 
 </body>
 <script type="text/javascript" src="{{url('ys/js/common.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/pmd_left.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/story.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/newsList_left.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/all.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/water.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/api.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/pmd_right.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/bug.js')}}"></script>
-<script type="text/javascript" src="{{url('ys/case05/js/service/newsList_right.js')}}"></script>
 </html>

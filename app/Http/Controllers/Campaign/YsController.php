@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Campaign\YS;
+<?php namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign\YS\ResourceModel;
@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\View\View;
 use Maatwebsite\Excel\Excel;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
