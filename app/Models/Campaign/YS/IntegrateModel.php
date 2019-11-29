@@ -17,6 +17,14 @@ class IntegrateModel extends Model {
      * @var string
      */
     protected $primaryKey = 'id';
+    protected $fillable = [
+        'chrIntergrateKey',
+        'chrIntegrateName',
+        'chrIntegrateDescribe',
+        'intVersionID',
+        'start_at',
+        'end_at'
+    ];//开启白名单字段
 
     /**
      * 隐藏属性

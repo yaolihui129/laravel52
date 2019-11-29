@@ -1,12 +1,11 @@
-@extends('campaign.common.layouts')
+@extends('campaign.case05.resource.menu')
 
 @section('content')
     @include('campaign.common.validator')
     <div class="panel panel-default">
-        <div class="panel-heading">修改版本</div>
+        <div class="panel-heading">{{ $heading }}</div>
         <div class="panel-body">
-            @include('campaign.case05.version._form')
+            @include('campaign.case05.resource._form')
         </div>
     </div>
-
 @stop

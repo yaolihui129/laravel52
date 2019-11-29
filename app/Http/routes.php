@@ -50,10 +50,22 @@ Route::group ( [
     Route::match(['get','post'],'version/create','VersionController@create');
     Route::get('version/{version}/del','VersionController@destroy')->where('version','[0-9]+');
     //集成号
-    Route::get('/integtera/version/{version}', 'IntegrateController@index')->where('version','[0-9]+');
-    Route::match(['get','post'],'integrate/{integrate}/edit','IntegrateController@edit')->where('integrate','[0-9]+');
-    Route::match(['get','post'],'integrate/create','IntegrateController@create');
-    Route::get('integrate/{integrate}/del','IntegrateController@destroy')->where('integrate','[0-9]+');
+    Route::get('/integrate/version/{version}', 'IntegrateController@index')->where('version','[0-9]+');
+    Route::match(['get','post'],'integrate/{integrate}/edit/{version}','IntegrateController@edit')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+']);
+    Route::match(['get','post'],'integrate/create/{version}','IntegrateController@create')->where('version','[0-9]+');
+    Route::get('integrate/{integrate}/del/{version}','IntegrateController@destroy')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+']);
+    //资源数据
+    Route::get('/resource/{integrate}/{version}/{enumType}', 'ResourceController@index')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::match(['get','post'],'resource/{resource}/edit/{integrate}/{version}/{enumType}','ResourceController@edit')
+        ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::match(['get','post'],'resource/create/{integrate}/{version}/{enumType}','ResourceController@create')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::get('resource/{resource}/del//{integrate}{version}/{enumType}','ResourceController@destroy')
+        ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+
 } );
 
 
@@ -76,7 +88,6 @@ Route::group ( [
         Route::get('/getIntegrate',"IntegrateController@getIntegrate");
         //获取资源
         Route::get('/getYSResource',"YsController@getYSResource");
-
 
     } );
 } );

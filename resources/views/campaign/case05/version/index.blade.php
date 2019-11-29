@@ -19,7 +19,7 @@
             </thead>
 
             <tbody>
-            @foreach($data as $item)
+            @foreach($res as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
                     <td>{{$item->chrVersionKey}}</td>
@@ -41,7 +41,7 @@
     <!-- 分页 -->
     <div>
         <div class="pull-right">
-            {!! $data->render() !!}
+            {!! $res->render() !!}
         </div>
     </div>
 @stop

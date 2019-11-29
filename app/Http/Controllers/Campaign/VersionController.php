@@ -22,9 +22,9 @@ class VersionController extends Controller {
             $pages["login"]="1";
         }
         //添加分页的查询
-        $data = VersionModel::paginate(15);
+        $res = VersionModel::paginate(15);
         return view('campaign.case05.version.index',[
-            'data'=>$data,
+            'res'=>$res,
         ])->with($pages);
     }
 
@@ -82,7 +82,7 @@ class VersionController extends Controller {
 
     function check($request){
         $this->validate($request,[
-            'res.chrVersionKey'=>'required|min:2|max:6',
+            'res.chrVersionKey'=>'required|min:2|max:15',
             'res.chrVersionName'=>'required|min:2|max:15',
             'res.IssueDate'=>'required|date',
         ],[
