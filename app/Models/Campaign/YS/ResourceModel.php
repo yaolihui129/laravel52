@@ -17,6 +17,13 @@ class ResourceModel extends Model {
      * @var string
      */
     protected $primaryKey = 'id';
+    protected $fillable = [
+        'enumType',
+        'resDate',
+        'intVersionID',
+        'intIntegrateID',
+        'textJson'
+    ];//开启白名单字段
     /**
      * 隐藏属性
      */

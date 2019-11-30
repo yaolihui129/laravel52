@@ -21,7 +21,7 @@
                 <th>维护者</th>
                 <th>维护时间</th>
                 <th width="150">操作：
-                    <a href="{{url('resource/create/'.$integrate.'/'.$version.'/'.$enumType)}}">新增</a>
+                    <a href="{{url('camp/resource/create/'.$integrate.'/'.$version.'/'.$enumType)}}">新增</a>
                 </th>
             </tr>
             </thead>

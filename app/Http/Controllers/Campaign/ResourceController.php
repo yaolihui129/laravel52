@@ -29,31 +29,31 @@ class ResourceController extends Controller {
         $res = ResourceModel::where('intVersionID','=',$version)->where('intIntegrateID','=',$integrate)
             ->where('enumType','=',$enumType)->paginate(15);
         if($enumType==1){
-            $view='api';
+            $chrKey='api';
             $title='压力、静态代码、安全、接口、UI（1-Api）';
         }elseif ($enumType==2){
-            $view='bug';
+            $chrKey='bug';
             $title='缺陷数据（2-Bug）';
         }elseif ($enumType==3){
-            $view='listLeft';
+            $chrKey='listLeft';
             $title='流程接口（3-ListLeft）';
         }elseif ($enumType==4){
-            $view='listRight';
+            $chrKey='listRight';
             $title='公共项目（4-ListRight）';
         }elseif ($enumType==5){
-            $view='pmdLeft';
+            $chrKey='pmdLeft';
             $title='专项测试（5-pmdLeft）';
         }elseif ($enumType==6){
-            $view='pmdRight';
+            $chrKey='pmdRight';
             $title='客户验证（6-PmdRight）';
         }elseif ($enumType==7){
-            $view='story';
+            $chrKey='story';
             $title='故事点进度（7-Story）';
         }elseif ($enumType==8){
-            $view='water';
+            $chrKey='water';
             $title='水球数据（8-Water）';
         }else{
-            $view='all';
+            $chrKey='all';
             $title='整体数据（0-all）';
         }
         $resVersion=VersionModel::find($version);
@@ -63,10 +63,9 @@ class ResourceController extends Controller {
         }else{
             $chrIntegrateName='无';
         }
-//        dd($resIntegrate);
         return view('campaign.case05.resource.index',[
             'res'=>$res,
-            'chrKey'=>$view,
+            'chrKey'=>$chrKey,
             'title'=>$title,
             'version'=>$version,
             'chrVersionName'=>$resVersion->chrVersionName,
@@ -77,15 +76,45 @@ class ResourceController extends Controller {
     }
 
 
-    public function create(Request $request,$version,$integrate,$enumType)
+    public function create(Request $request,$integrate,$version,$enumType)
     {
         $res= new ResourceModel();
+        $resVersion=VersionModel::find($version);
+        $resIntegrate=IntegrateModel::find($integrate);
+        $res->resDate=date('Y-m-d',time());
+        if($resIntegrate){
+            $chrIntegrateName=$resIntegrate->chrIntegrateName;
+        }else{
+            $chrIntegrateName='无';
+        }
+        if($enumType==1){
+            $chrKey='api';
+        }elseif ($enumType==2){
+            $chrKey='bug';
+        }elseif ($enumType==3){
+            $chrKey='listLeft';
+        }elseif ($enumType==4){
+            $chrKey='listRight';
+        }elseif ($enumType==5){
+            $chrKey='pmdLeft';
+        }elseif ($enumType==6){
+            $chrKey='pmdRight';
+        }elseif ($enumType==7){
+            $chrKey='story';
+        }elseif ($enumType==8){
+            $chrKey='water';
+        }else{
+            $chrKey='all';
+        }
         if($request->isMethod('POST')){
             $this->check($request);
             $data = $request->input('res');
+            $data['enumType']=$enumType;
             $data['intVersionID']=$version;
+            $data['intIntegrateID']=$integrate;
+//            dd($data);
             if(ResourceModel::create($data)){
-                return redirect('camp/resource/version/'.$version)->with('success','添加成功');
+                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','添加成功');
             }else{
                 return redirect()->back()->with('error','添加失败');
             }
@@ -93,8 +122,12 @@ class ResourceController extends Controller {
 
         return view('campaign.case05.resource.create',[
             'res'=>$res,
+            'chrKey'=>$chrKey,
             'version'=>$version,
+            'chrVersionName'=>$resVersion->chrVersionName,
             'integrate'=>$integrate,
+            'chrIntegrateName'=>$chrIntegrateName,
+            'enumType'=>$enumType,
             'heading'=>'新增资源数据',
         ]);
     }
@@ -102,59 +135,85 @@ class ResourceController extends Controller {
 
 
 
-    public function edit(Request $request,$id,$version,$integrate,$enumType)
+    public function edit(Request $request,$id,$integrate,$version,$enumType)
     {
         $res=ResourceModel::find($id);
+        $resVersion=VersionModel::find($version);
+        $resIntegrate=IntegrateModel::find($integrate);
+        if($resIntegrate){
+            $chrIntegrateName=$resIntegrate->chrIntegrateName;
+        }else{
+            $chrIntegrateName='无';
+        }
+        if($enumType==1){
+            $chrKey='api';
+        }elseif ($enumType==2){
+            $chrKey='bug';
+        }elseif ($enumType==3){
+            $chrKey='listLeft';
+        }elseif ($enumType==4){
+            $chrKey='listRight';
+        }elseif ($enumType==5){
+            $chrKey='pmdLeft';
+        }elseif ($enumType==6){
+            $chrKey='pmdRight';
+        }elseif ($enumType==7){
+            $chrKey='story';
+        }elseif ($enumType==8){
+            $chrKey='water';
+        }else{
+            $chrKey='all';
+        }
         if($request->isMethod('POST')){
             $this->check($request);
             $data=$request->input('res');
-            $res->chrIntergrateKey = $data['chrIntergrateKey'];
-            $res->chrIntegrateName = $data['chrIntegrateName'];
-//            $res->chrIntegrateDescribe = $data['chrIntegrateDescribe'];
-            $res->start_at = $data['start_at'];
-            $res->end_at = $data['end_at'];
-
+            $res['resDate']=$data['resDate'];
             if($res->save()){
-                return redirect('camp/resource/version/'.$version)->with('success','修改成功-'.$id);
+                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','修改成功-'.$id);
             }
         }
         return view('campaign.case05.resource.create',[
             'res'=>$res,
+            'chrKey'=>$chrKey,
             'version'=>$version,
+            'chrVersionName'=>$resVersion->chrVersionName,
             'integrate'=>$integrate,
+            'chrIntegrateName'=>$chrIntegrateName,
+            'enumType'=>$enumType,
             'heading'=>'编辑资源数据',
         ]);
     }
 
-    public function destroy($id,$version,$integrate,$enumType)
+    public function destroy($id,$integrate,$version,$enumType)
     {
 
-        $teacher =ResourceModel::find($id);
-        if($teacher->delete()){
-            return redirect("camp/resource/version/".$version)->with('success','删除成功-'.$id);
+        $res =ResourceModel::find($id);
+//        dd($res);
+        if($res->delete()){
+            return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','删除成功-'.$id);
         }else{
-            return redirect("camp/resource/version/".$version)->with('error','删除失败-'.$id);
+            return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('error','删除失败-'.$id);
         }
     }
 
 
     function check($request){
         $this->validate($request,[
-            'res.chrIntergrateKey'=>'required|min:2|max:15',
-            'res.chrIntegrateName'=>'required|min:2|max:15',
-            'res.start_at'=>'required|date',
-            'res.end_at'=>'required|date',
+//            'res.chrIntergrateKey'=>'required|min:2|max:15',
+//            'res.chrIntegrateName'=>'required|min:2|max:15',
+            'res.resDate'=>'required|date',
+//            'res.end_at'=>'required|date',
         ],[
             'required'=>':attribute 为必填项',
-            'min'=>':attribute 长度不能低于 2 位',
-            'max'=>':attribute 长度不能超过 15 位',
-            'integer'=>':attribute 必须是整数',
+//            'min'=>':attribute 长度不能低于 2 位',
+//            'max'=>':attribute 长度不能超过 15 位',
+//            'integer'=>':attribute 必须是整数',
             'date'=>':attribute 必须是日期',
         ],[
-            'res.chrIntergrateKey'=>'Key',
-            'res.chrIntegrateName'=>'版本号',
-            'res.start_at'=>'发版日期',
-            'res.end_at'=>'发版日期',
+//            'res.chrIntergrateKey'=>'Key',
+//            'res.chrIntegrateName'=>'版本号',
+//            'res.start_at'=>'发版日期',
+            'res.resDate'=>'业务日期',
         ]);
     }
 
