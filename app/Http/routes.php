@@ -61,6 +61,10 @@ Route::group ( [
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::match(['get','post'],'resource/{resource}/edit/{integrate}/{version}/{enumType}','ResourceController@edit')
         ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::match(['get','post'],'resource/{resource}/show/{integrate}/{version}/{enumType}','ResourceController@edit')
+        ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::match(['get','post'],'resource/{resource}/copy/{integrate}/{version}/{enumType}','ResourceController@edit')
+        ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::match(['get','post'],'resource/create/{integrate}/{version}/{enumType}','ResourceController@create')
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::get('resource/{resource}/del//{integrate}{version}/{enumType}','ResourceController@destroy')

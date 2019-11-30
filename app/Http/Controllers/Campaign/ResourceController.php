@@ -64,7 +64,7 @@ class ResourceController extends Controller {
             $chrIntegrateName='无';
         }
 //        dd($resIntegrate);
-        return view('campaign.case05.resource.'.$view,[
+        return view('campaign.case05.resource.index',[
             'res'=>$res,
             'chrKey'=>$view,
             'title'=>$title,

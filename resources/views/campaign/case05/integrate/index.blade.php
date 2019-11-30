@@ -5,7 +5,9 @@
     <!-- 内容区域 -->
     @include('campaign.common.message')
     <div class="panel panel-default">
-        <div class="panel-heading">集成号列表</div>
+        <div class="panel-heading">集成号
+            <a href="{{url('/camp/version')}}" class="btn btn-warning btn-xs pull-right">返回</a>
+        </div>
         <table class="table table-striped table-hover table-responsive">
             <thead>
             <tr>
@@ -15,7 +17,9 @@
                 <th>开始日期</th>
                 <th>结束日期</th>
                 <th>修改时间</th>
-                <th width="150">操作</th>
+                <th width="150">操作:
+                    <a href="{{ url('camp/integrate/create/'.$version) }}">新增</a>
+                </th>
             </tr>
             </thead>
 
@@ -23,7 +27,7 @@
                 <tr>
                     <th scope="row">0</th>
                     <td>YS0</td>
-                    <td>无集成号</td>
+                    <td>无</td>
                     <td>--</td>
                     <td>--</td>
                     <td>--</td>
@@ -54,7 +58,7 @@
     <!-- 分页 -->
     <div>
         <div class="pull-right">
-{{--            {!! $res->render() !!}--}}
+            {!! $res->render() !!}
         </div>
     </div>
 @stop
