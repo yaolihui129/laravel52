@@ -10,7 +10,8 @@
         "lesstif/php-jira-rest-client": "^1.7.0",
         "encore/laravel-admin": "1.2.*",
         "caouecs/laravel-lang": "~3.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
