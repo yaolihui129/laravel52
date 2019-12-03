@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "lesstif/php-jira-rest-client": "^1.7.0",
         "encore/laravel-admin": "1.2.*",
-        "caouecs/laravel-lang": "~3.0"
+        "caouecs/laravel-lang": "~3.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

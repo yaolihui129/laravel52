@@ -1,8 +1,10 @@
 <?php namespace App\Models\Campaign\YS;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ResourceModel extends Model {
+    use SoftDeletes;
 
     /**
      * 关联到模型的数据表
@@ -17,13 +19,24 @@ class ResourceModel extends Model {
      * @var string
      */
     protected $primaryKey = 'id';
+
+    /**
+     * 应该被调整为日期的属性
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+    /**
+     * 开启白名单字段
+     * @var array
+     */
     protected $fillable = [
         'enumType',
         'resDate',
         'intVersionID',
         'intIntegrateID',
         'textJson'
-    ];//开启白名单字段
+    ];
     /**
      * 隐藏属性
      */

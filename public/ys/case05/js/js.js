@@ -381,7 +381,7 @@ $(function() {
         if (res.data) {
             for (let i = 0; i <res.data.length ; i++) {
                 dataYAxis.push(res.data[i].chrName);
-                dataSeries.push(res.data[i].floatSpeed.toFixed(4) * 100);
+                dataSeries.push(parseFloat(res.data[i].floatSpeed).toFixed(4) * 100);
             }
         }else {
             console.log('story未获取到值');
@@ -687,7 +687,7 @@ $(function() {
                                 '<div class="col-xs-3" >' +
                                     '<div>.</div>' +
                                     '<div style="color:#FDD71E;font-size: 15px">' +
-                                        res.data[i].floatSpeed.toFixed(4) * 100  +'%'+
+                                        parseFloat(res.data[i].floatSpeed).toFixed(4) * 100  +'%'+
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -779,7 +779,7 @@ $(function() {
                             '</div>'+
                             '<div class="col-xs-3">'+
                                 '<div style="font-size: 20px;color: #F1EE74">' +
-                                    res.data[i].floatSpeed.toFixed(4) *100 + '%'+
+                                    parseFloat(res.data[i].floatSpeed).toFixed(4) *100 + '%'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
