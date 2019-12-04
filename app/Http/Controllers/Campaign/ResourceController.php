@@ -91,10 +91,56 @@ class ResourceController extends Controller {
             }
         }
         $data=json_decode($res->textJson,true);
-//        dd($data['data']);
-//        dd($enumType);
+        if(!$data){
+            $data=array(
+                'data'=>$this->firstArray($enumType)
+            );
+        }
 
         return view('campaign.case05.resource.show',[
+            'res'=>$res,
+            'data'=>$data['data'],
+            'chrKey'=>$this->chrKey($enumType),
+            'version'=>$version,
+            'chrVersionName'=>$resVersion->chrVersionName,
+            'integrate'=>$integrate,
+            'chrIntegrateName'=>$chrIntegrateName,
+            'enumType'=>$enumType,
+        ]);
+    }
+
+
+    public function copy(Request $request,$id,$integrate,$version,$enumType){
+        $res            = ResourceModel::find($id);
+        $resVersion     = VersionModel::find($version);
+        $resIntegrate   = IntegrateModel::find($integrate);
+        if($resIntegrate){
+            $chrIntegrateName=$resIntegrate->chrIntegrateName;
+        }else{
+            $chrIntegrateName='无';
+        }
+
+        if($request->isMethod('POST')){
+            $data['data'] = $request->input('data');
+            $data['enumType']=$enumType;
+            $data['intVersionID']=$version;
+            $data['intIntegrateID']=$integrate;
+            $res->textJson=json_encode($data);
+//            dd($data['data']);
+            if(ResourceModel::create($data)){
+                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','复制成功');
+            }else{
+                return redirect()->back()->with('error','复制失败');
+            }
+        }
+        $data=json_decode($res->textJson,true);
+        if(!$data){
+            $data=array(
+                'data'=>$this->firstArray($enumType)
+            );
+        }
+
+        return view('campaign.case05.resource.copy',[
             'res'=>$res,
             'data'=>$data['data'],
             'chrKey'=>$this->chrKey($enumType),
@@ -113,6 +159,84 @@ class ResourceController extends Controller {
 
     function chrKey($enumType){
         $arg=['all','api','bug','listLeft','listRight','pmdLeft','pmdRight','story','water'];
+        return $arg[$enumType];
+    }
+
+    /**
+     * 新数据初始化
+     * @param $enumType
+     * @return mixed
+     */
+    function firstArray($enumType){
+        $today=date('Y-m-d',time());
+        $arg=array(
+            //all
+            array('intSum'=>0,'intDone'=>0,'intDoing'=>0),
+            //api
+            array(
+                'intPressureSum'=>'','intPressureFind'=>0,'intPressureResolved'=>0,
+                'intStaticSum'=>'','intStaticFind'=>0,'intStaticResolved'=>0,
+                'intSafetySum'=>'','intSafetyFind'=>0,'intSafetyResolved'=>0,
+                'intApiSum'=>0,'intApiFind'=>0,'intApiResolved'=>0,
+                'intUISum'=>0,'intUIFind'=>0,'intUIResolved'=>0
+            ),
+            array(//bug
+                array('chrKey'=>'BPAAS','chrName'=>'平台','intSum'=>"0"),
+                array('chrKey'=>'UPESN','chrName'=>'协同','intSum'=>"0"),
+                array('chrKey'=>'HRY','chrName'=>'人力','intSum'=>"0"),
+                array('chrKey'=>'CGUKC','chrName'=>'供应链','intSum'=>"0"),
+                array('chrKey'=>'OMS','chrName'=>'营销云','intSum'=>"0"),
+                array('chrKey'=>'YBZ','chrName'=>'财务','intSum'=>"0"),
+                array('chrKey'=>'UCMFG','chrName'=>'制造','intSum'=>"0"),
+            ),
+            array(//listLeft
+                array('chrKey'=>'BPAAS','chrName'=>'平台','floatSpeed'=>"0.00"),
+                array('chrKey'=>'UPESN','chrName'=>'协同','floatSpeed'=>"0.00"),
+                array('chrKey'=>'HRY','chrName'=>'人力','floatSpeed'=>"0.00"),
+                array('chrKey'=>'CGUKC','chrName'=>'供应链','floatSpeed'=>"0.00"),
+                array('chrKey'=>'OMS','chrName'=>'营销云','floatSpeed'=>"0.00"),
+                array('chrKey'=>'YBZ','chrName'=>'财务','floatSpeed'=>"0.00"),
+                array('chrKey'=>'UCMFG','chrName'=>'制造','floatSpeed'=>"0.00"),
+            ),
+            array(//listRight
+                array('chrKey'=>'PP1','chrName'=>'公共项目1','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP2','chrName'=>'公共项目2','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP3','chrName'=>'公共项目3','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP4','chrName'=>'公共项目4','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP5','chrName'=>'公共项目5','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP6','chrName'=>'公共项目6','floatSpeed'=>"0.00"),
+                array('chrKey'=>'PP7','chrName'=>'公共项目7','floatSpeed'=>"0.00"),
+            ),
+            array(//pmdLeft
+                array('chrKey'=>'BPAAS','chrName'=>'平台','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'UPESN','chrName'=>'协同','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'HRY','chrName'=>'人力','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'CGUKC','chrName'=>'供应链','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'OMS','chrName'=>'营销云','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'YBZ','chrName'=>'财务','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'UCMFG','chrName'=>'制造','floatSpeed'=>"0.00",'dateDate'=>$today),
+            ),
+            array(//pmdRight
+                array('chrKey'=>'Customer1','chrName'=>'客户1','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer2','chrName'=>'客户2','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer3','chrName'=>'客户3','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer4','chrName'=>'客户4','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer5','chrName'=>'客户5','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer6','chrName'=>'客户6','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'Customer7','chrName'=>'客户7','floatSpeed'=>"0.00",'dateDate'=>$today),
+            ),
+            array(//story
+                array('chrKey'=>'BPAAS','chrName'=>'平台','floatSpeed'=>"0.00"),
+                array('chrKey'=>'UPESN','chrName'=>'协同','floatSpeed'=>"0.00"),
+                array('chrKey'=>'HRY','chrName'=>'人力','floatSpeed'=>"0.00"),
+                array('chrKey'=>'CGUKC','chrName'=>'供应链','floatSpeed'=>"0.00"),
+                array('chrKey'=>'OMS','chrName'=>'营销云','floatSpeed'=>"0.00"),
+                array('chrKey'=>'YBZ','chrName'=>'财务','floatSpeed'=>"0.00"),
+                array('chrKey'=>'UCMFG','chrName'=>'制造','floatSpeed'=>"0.00"),
+            ),
+            //water
+            array("floatDevelop"=>"0.00","floatTest"=>"0.00","floatUser"=>"0.00","floatEditions"=>"0.00"),
+        );
         return $arg[$enumType];
     }
 

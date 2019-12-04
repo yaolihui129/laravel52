@@ -9,23 +9,20 @@
             <form class="form-horizontal" method="post" action="">
                 {!! csrf_field() !!}
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">版本号</label>
-                    <div class="col-sm-4">
+                    <label for="name" class="col-sm-1 control-label">版本号</label>
+                    <div class="col-sm-2">
                         <input type="text" value="{{ $chrVersionName }}" class="form-control" readonly>
                     </div>
                     <label for="name" class="col-sm-2 control-label">集成号</label>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <input type="text" value="{{ $chrIntegrateName }}" class="form-control" readonly>
                     </div>
-                </div>
-                <div class="form-group">
-
-                    <label for="name" class="col-sm-2 control-label">业务日期</label>
-                    <div class="col-sm-4">
-                        <input type="date" name="res[resDate]"  value="{{ $res->resDate }}" class="form-control">
+                    <label for="name" class="col-sm-1 control-label">业务日期</label>
+                    <div class="col-sm-2">
+                        <input type="date" name="res[resDate]" value="{{ $res->resDate }}" class="form-control">
                     </div>
-                    <label for="name" class="col-sm-2 control-label">chrKey</label>
-                    <div class="col-sm-4">
+                    <label for="name" class="col-sm-1 control-label">chrKey</label>
+                    <div class="col-sm-2">
                         <input type="text" value="{{$chrKey}}" class="form-control" readonly>
                     </div>
                 </div>

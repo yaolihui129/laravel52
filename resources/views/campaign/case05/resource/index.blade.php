@@ -40,7 +40,6 @@
                     <td>
                         <a href="{{ url('camp/resource/'.$item->id.'/show/'.$integrate.'/'.$version.'/'.$enumType) }}">详情</a>
                         <a href="{{ url('camp/resource/'.$item->id.'/copy/'.$integrate.'/'.$version.'/'.$enumType) }}">复制</a>
-                        <a href="{{ url('camp/resource/'.$item->id.'/edit/'.$integrate.'/'.$version.'/'.$enumType) }}">修改</a>
                         <a href="{{ url('camp/resource/'.$item->id).'/del/'.$integrate.'/'.$version.'/'.$enumType}}"
                            onclick="if(confirm('确定要删除吗？')== false) return false;">删除</a>
                     </td>

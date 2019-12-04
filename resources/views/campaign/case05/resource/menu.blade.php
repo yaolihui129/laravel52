@@ -3,19 +3,11 @@
 
 @section('container')
     <div class="row">
-        <!-- 左侧菜单区域 -->
-        <div class="col-md-3">
-{{--            <div class="list-group">--}}
-{{--                <a href="{{ url('camp/resource/version/'.$version ) }}" class="list-group-item--}}
-{{--                {{  $enumType == 0  ? 'active' :'' }}--}}
-{{--                        "> 集成号列表</a>--}}
-{{--                <a href="{{ url('camp/resource/create/'.$version) }}" class="list-group-item--}}
-{{--                {{ Request::getPathInfo() == '/camp/resource/create/'.$version ? 'active' :'' }}--}}
-{{--                        "> 新增集成号</a>--}}
-{{--            </div>--}}
-        </div>
         <div class="col-md-12">
             <ul class="nav nav-pills" role="tablist">
+                <li role="presentation">
+                    <a href="{{url('camp/resource/upload/'.$integrate.'/'.$version.'/'.$enumType)}}">数据上传 </a>
+                </li>
                 <li role="presentation" class={{  $enumType == 0  ? "active" :"" }}>
                     <a href="{{url('camp/resource/'.$integrate.'/'.$version.'/0')}}">整体</a>
                 </li>
