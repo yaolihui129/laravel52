@@ -56,7 +56,7 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
+            'key'    => 'your-key',
             'secret' => 'your-secret',
             'region' => 'your-region',
             'bucket' => 'your-bucket',
@@ -65,7 +65,7 @@ return [
             'driver'     => 'local',
             'root'       => public_path('upload'),
             'visibility' => 'public',
-            'url' => env('APP_URL').'/public/upload/',
+            'url'        => env('APP_URL').'/public/upload/',
         ],
 
     ],

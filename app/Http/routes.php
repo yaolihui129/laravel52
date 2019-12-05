@@ -59,8 +59,6 @@ Route::group ( [
     //资源数据
     Route::get('/resource/{integrate}/{version}/{enumType}', 'ResourceController@index')
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
-    Route::match(['get','post'],'resource/{resource}/edit/{integrate}/{version}/{enumType}','ResourceController@edit')
-        ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::match(['get','post'],'resource/{resource}/show/{integrate}/{version}/{enumType}','ResourceController@show')
         ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::match(['get','post'],'resource/{resource}/copy/{integrate}/{version}/{enumType}','ResourceController@copy')
@@ -69,7 +67,10 @@ Route::group ( [
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::get('resource/{resource}/del/{integrate}/{version}/{enumType}','ResourceController@destroy')
         ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
-
+    Route::match(['get','post'],'resource/upload/{integrate}/{version}/{enumType}','ResourceController@upload')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
+    Route::match(['get','post'],'resource/download/{integrate}/{version}/{enumType}','ResourceController@download')
+        ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
 } );
 
 

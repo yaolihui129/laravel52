@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-pills" role="tablist">
-                <li role="presentation">
-                    <a href="{{url('camp/resource/upload/'.$integrate.'/'.$version.'/'.$enumType)}}">数据上传 </a>
+                <li role="presentation"  class={{  $enumType == 9  ? "active" :"" }}>
+                    <a href="{{url('camp/resource/upload/'.$integrate.'/'.$version.'/9')}}">数据上传 </a>
                 </li>
                 <li role="presentation" class={{  $enumType == 0  ? "active" :"" }}>
                     <a href="{{url('camp/resource/'.$integrate.'/'.$version.'/0')}}">整体</a>

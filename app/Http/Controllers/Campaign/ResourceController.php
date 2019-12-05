@@ -14,6 +14,7 @@ use Illuminate\View\View;
 class ResourceController extends Controller {
 
     /**
+     * 资源数据首页
      * @param $integrate
      * @param $version
      * @param $enumType
@@ -59,8 +60,7 @@ class ResourceController extends Controller {
     }
 
     /**
-     * Display the specified resource.
-     *
+     * 资源数据详情维护
      * @param Request $request
      * @param int $id
      * @param $integrate
@@ -78,25 +78,23 @@ class ResourceController extends Controller {
         }else{
             $chrIntegrateName='无';
         }
-
         if($request->isMethod('POST')){
             $data['data'] = $request->input('data');
-
             $res->textJson=json_encode($data);
-//            dd($data['data']);
             if($res->save()){
-                return redirect('camp/resource/'.$id.'/show/'.$integrate.'/'.$version.'/'.$enumType)->with('success','维护成功');
+                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)
+                    ->with('success','维护成功');
             }else{
                 return redirect()->back()->with('error','维护失败');
             }
         }
         $data=json_decode($res->textJson,true);
+        //处理新数据
         if(!$data){
             $data=array(
                 'data'=>$this->firstArray($enumType)
             );
         }
-
         return view('campaign.case05.resource.show',[
             'res'=>$res,
             'data'=>$data['data'],
@@ -110,6 +108,15 @@ class ResourceController extends Controller {
     }
 
 
+    /**
+     * 复制资源数据
+     * @param Request $request
+     * @param $id
+     * @param $integrate
+     * @param $version
+     * @param $enumType
+     * @return Factory|RedirectResponse|View
+     */
     public function copy(Request $request,$id,$integrate,$version,$enumType){
         $res            = ResourceModel::find($id);
         $resVersion     = VersionModel::find($version);
@@ -121,25 +128,18 @@ class ResourceController extends Controller {
         }
 
         if($request->isMethod('POST')){
-            $data['data'] = $request->input('data');
-            $data['enumType']=$enumType;
-            $data['intVersionID']=$version;
-            $data['intIntegrateID']=$integrate;
-            $res->textJson=json_encode($data);
-//            dd($data['data']);
-            if(ResourceModel::create($data)){
+            $res=$request->input('res');
+            $res['enumType']=$enumType;
+            $res['intVersionID']=$version;
+            $res['intIntegrateID']=$integrate;
+            $res['textJson']='{"data":'.json_encode($request->input('data')).'}';
+            if(ResourceModel::firstOrCreate($res)){
                 return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','复制成功');
             }else{
                 return redirect()->back()->with('error','复制失败');
             }
         }
         $data=json_decode($res->textJson,true);
-        if(!$data){
-            $data=array(
-                'data'=>$this->firstArray($enumType)
-            );
-        }
-
         return view('campaign.case05.resource.copy',[
             'res'=>$res,
             'data'=>$data['data'],
@@ -241,6 +241,7 @@ class ResourceController extends Controller {
     }
 
     /**
+     * 资源数据创建
      * @param Request $request
      * @param $integrate
      * @param $version
@@ -265,8 +266,10 @@ class ResourceController extends Controller {
             $data['enumType']=$enumType;
             $data['intVersionID']=$version;
             $data['intIntegrateID']=$integrate;
-            if(ResourceModel::create($data)){
-                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','添加成功');
+            $res=ResourceModel::firstOrCreate($data);
+            if($res){
+                return redirect('camp/resource/'.$res->id.'/show/'.$integrate.'/'.$version.'/'.$enumType)
+                    ->with('success','添加成功');
             }else{
                 return redirect()->back()->with('error','添加失败');
             }
@@ -281,44 +284,6 @@ class ResourceController extends Controller {
             'chrIntegrateName'=>$chrIntegrateName,
             'enumType'=>$enumType,
             'heading'=>'新增资源数据',
-        ]);
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @param $integrate
-     * @param $version
-     * @param $enumType
-     * @return Factory|RedirectResponse|View
-     */
-    public function edit(Request $request,$id,$integrate,$version,$enumType)
-    {
-        $res=ResourceModel::find($id);
-        $resVersion=VersionModel::find($version);
-        $resIntegrate=IntegrateModel::find($integrate);
-        if($resIntegrate){
-            $chrIntegrateName=$resIntegrate->chrIntegrateName;
-        }else{
-            $chrIntegrateName='无';
-        }
-        if($request->isMethod('POST')){
-            $this->check($request);
-            $data=$request->input('res');
-            $res['resDate']=$data['resDate'];
-            if($res->save()){
-                return redirect('camp/resource/'.$integrate.'/'.$version.'/'.$enumType)->with('success','修改成功-'.$id);
-            }
-        }
-        return view('campaign.case05.resource.create',[
-            'res'=>$res,
-            'chrKey'=>$this->chrKey($enumType),
-            'version'=>$version,
-            'chrVersionName'=>$resVersion->chrVersionName,
-            'integrate'=>$integrate,
-            'chrIntegrateName'=>$chrIntegrateName,
-            'enumType'=>$enumType,
-            'heading'=>'编辑资源数据',
         ]);
     }
 
@@ -362,6 +327,20 @@ class ResourceController extends Controller {
     }
 
 
+    public function upload($integrate,$version,$enumType){
+        return view('campaign.case05.resource.upload',[
+            'version'=>$version,
+            'integrate'=>$integrate,
+            'enumType'=>$enumType,
+            'heading'=>'新增资源数据',
+        ]);
+    }
+
+    public function download($integrate,$version,$enumType)
+    {
+        $file=storage_path('download/demo.xlsx');
+        return response()->download($file);
+    }
 
 
 }
