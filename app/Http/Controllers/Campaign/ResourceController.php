@@ -10,6 +10,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResourceController extends Controller {
 
@@ -288,6 +290,7 @@ class ResourceController extends Controller {
     }
 
     /**
+     * 资源删除
      * @param $id
      * @param $integrate
      * @param $version
@@ -327,18 +330,74 @@ class ResourceController extends Controller {
     }
 
 
-    public function upload($integrate,$version,$enumType){
+    public function upload(Request $request,$integrate,$version,$enumType){
+        $resVersion=VersionModel::find($version);
+        $resIntegrate=IntegrateModel::find($integrate);
+        if($resIntegrate){
+            $chrIntegrateName=$resIntegrate->chrIntegrateName;
+        }else{
+            $chrIntegrateName='无';
+        }
+
+        if($request->isMethod('POST')){
+            $file = $request->file('file');
+            $res = $request->file('res');
+            $fileName=$this->uploadFile($file);
+//            dd($fileName);
+            if($fileName){
+                return redirect('camp/resource/upload/'.$integrate.'/'.$version.'/'.$enumType)
+                    ->with('success','上传成功');
+            }else{
+                return redirect()->back()->with('error','上传失败');
+            }
+        }
         return view('campaign.case05.resource.upload',[
+            'resDate'=>date('Y-m-d',time()),
             'version'=>$version,
+            'chrVersionName'=>$resVersion->chrVersionName,
             'integrate'=>$integrate,
+            'chrIntegrateName'=>$chrIntegrateName,
             'enumType'=>$enumType,
             'heading'=>'新增资源数据',
         ]);
     }
 
-    public function download($integrate,$version,$enumType)
+    function uploadFile($file, $disk='public'){
+        // 1.是否上传成功
+        if (! $file->isValid()) {
+            return false;
+        }
+        // 2.是否符合文件类型 getClientOriginalExtension 获得文件后缀名
+        $fileExtension = $file->getClientOriginalExtension();
+        if(! in_array($fileExtension, ['xlsx', 'xls'])) {
+            return false;
+        }
+        // 3.判断大小是否符合 2M
+        $tmpFile = $file->getRealPath();
+        if (filesize($tmpFile) >= 2048000) {
+            return false;
+        }
+        // 4.是否是通过http请求表单提交的文件
+        if (! is_uploaded_file($tmpFile)) {
+            return false;
+        }
+        // 5.每天一个文件夹,分开存储, 生成一个随机文件名
+        $fileName = date('Y_m_d').'/'.md5(time()) .mt_rand(0,9999).'.'. $fileExtension;
+        if (Storage::disk($disk)->put($fileName, file_get_contents($tmpFile)) ){
+            return Storage::url($fileName);
+        }
+    }
+
+    function import($filePath){
+        Excel::load($filePath, function($reader) {
+            $data = $reader->all();
+            dd($data);
+        });
+    }
+
+    public function download()
     {
-        $file=storage_path('download/demo.xlsx');
+        $file=storage_path('download/YS质量分析上传数据模板.xlsx');
         return response()->download($file);
     }
 
