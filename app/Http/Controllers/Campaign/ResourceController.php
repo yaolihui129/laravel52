@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ResourceController extends Controller {
 
@@ -109,9 +110,8 @@ class ResourceController extends Controller {
         ]);
     }
 
-
     /**
-     * 复制资源数据
+     * 资源数据复制
      * @param Request $request
      * @param $id
      * @param $integrate
@@ -158,7 +158,6 @@ class ResourceController extends Controller {
      * @param $enumType
      * @return mixed
      */
-
     function chrKey($enumType){
         $arg=['all','api','bug','listLeft','listRight','pmdLeft','pmdRight','story','water'];
         return $arg[$enumType];
@@ -210,13 +209,13 @@ class ResourceController extends Controller {
                 array('chrKey'=>'PP7','chrName'=>'公共项目7','floatSpeed'=>"0.00"),
             ),
             array(//pmdLeft
-                array('chrKey'=>'BPAAS','chrName'=>'平台','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'UPESN','chrName'=>'协同','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'HRY','chrName'=>'人力','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'CGUKC','chrName'=>'供应链','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'OMS','chrName'=>'营销云','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'YBZ','chrName'=>'财务','floatSpeed'=>"0.00",'dateDate'=>$today),
-                array('chrKey'=>'UCMFG','chrName'=>'制造','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX1','chrName'=>'专项1','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX2','chrName'=>'专项2','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX3','chrName'=>'专项3','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX4','chrName'=>'专项4','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX5','chrName'=>'专项5','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX6','chrName'=>'专项6','floatSpeed'=>"0.00",'dateDate'=>$today),
+                array('chrKey'=>'ZX7','chrName'=>'专项7','floatSpeed'=>"0.00",'dateDate'=>$today),
             ),
             array(//pmdRight
                 array('chrKey'=>'Customer1','chrName'=>'客户1','floatSpeed'=>"0.00",'dateDate'=>$today),
@@ -243,14 +242,13 @@ class ResourceController extends Controller {
     }
 
     /**
-     * 资源数据创建
+     * 资源数据新增
      * @param Request $request
      * @param $integrate
      * @param $version
      * @param $enumType
      * @return Factory|RedirectResponse|View
      */
-
     public function create(Request $request,$integrate,$version,$enumType)
     {
         $res= new ResourceModel();
@@ -308,7 +306,10 @@ class ResourceController extends Controller {
         }
     }
 
-
+    /**
+     * 字段校验
+     * @param $request
+     */
     function check($request){
         $this->validate($request,[
 //            'res.chrIntergrateKey'=>'required|min:2|max:15',
@@ -329,7 +330,14 @@ class ResourceController extends Controller {
         ]);
     }
 
-
+    /**
+     * 数据上传
+     * @param Request $request
+     * @param $integrate
+     * @param $version
+     * @param $enumType
+     * @return Factory|RedirectResponse|View
+     */
     public function upload(Request $request,$integrate,$version,$enumType){
         $resVersion=VersionModel::find($version);
         $resIntegrate=IntegrateModel::find($integrate);
@@ -343,8 +351,10 @@ class ResourceController extends Controller {
             $file = $request->file('file');
             $res = $request->file('res');
             $fileName=$this->uploadFile($file);
-//            dd($fileName);
+            dd($fileName);
             if($fileName){
+                //调用解析方法
+//                $this->import($fileName,$version,$integrate,$res['resDate']);
                 return redirect('camp/resource/upload/'.$integrate.'/'.$version.'/'.$enumType)
                     ->with('success','上传成功');
             }else{
@@ -362,6 +372,12 @@ class ResourceController extends Controller {
         ]);
     }
 
+    /**
+     * 处理上传文件
+     * @param $file
+     * @param string $disk
+     * @return bool
+     */
     function uploadFile($file, $disk='public'){
         // 1.是否上传成功
         if (! $file->isValid()) {
@@ -388,13 +404,192 @@ class ResourceController extends Controller {
         }
     }
 
-    function import($filePath){
-        Excel::load($filePath, function($reader) {
-            $data = $reader->all();
-            dd($data);
+    /**
+     * 解析Excel文件内容
+     * @param string $filePath
+     * @param int $version
+     * @param int $integrate
+     * @param string $resDate
+     */
+    function import($filePath,$version,$integrate,$resDate){
+        Excel::load($filePath, function($reader) use($version,$integrate,$resDate) {
+            //处理公共参数
+            $data['intVersionID']=$version;
+            $data['intIntegrateID']=$integrate;
+            $data['resDate']=$resDate;
+
+            //0-all-整体数据
+            $data['enumType']=0;
+            $res=$this->readExcelSheet($reader,$data['enumType']);
+            $obj=ResourceModel::firstOrNew($data);
+            $jsonArray=array(
+                'data'=>array(
+                    $res[0][0]=>$res[2][0],
+                    $res[0][1]=>$res[2][1],
+                    $res[0][2]=>$res[2][2]
+                )
+            );
+            $obj->textJson=json_encode($jsonArray);
+            $obj->save();
+            //api
+            $data['enumType']=1;
+            $res=$this->readExcelSheet($reader,$data['enumType']);
+            $obj=ResourceModel::firstOrNew($data);
+            $jsonArray=array(
+                'data'=>array(
+                    $res[0][0]=>$res[2][0],
+                    $res[0][1]=>$res[2][1],
+                    $res[0][2]=>$res[2][2],
+                    $res[0][3]=>$res[2][3],
+                    $res[0][4]=>$res[2][4],
+                    $res[0][5]=>$res[2][5],
+                    $res[0][6]=>$res[2][6],
+                    $res[0][7]=>$res[2][7],
+                    $res[0][8]=>$res[2][8],
+                    $res[0][9]=>$res[2][9],
+                    $res[0][10]=>$res[2][10],
+                    $res[0][11]=>$res[2][11],
+                    $res[0][12]=>$res[2][12],
+                    $res[0][13]=>$res[2][13],
+                    $res[0][14]=>$res[2][14],
+                    $res[0][15]=>$res[2][15],
+                    $res[0][16]=>$res[2][16],
+                    $res[0][17]=>$res[2][17],
+                    $res[0][18]=>$res[2][18],
+                    $res[0][19]=>$res[2][19],
+                )
+            );
+            $obj->textJson=json_encode($jsonArray);
+            $obj->save();
+            //Bug 缺陷数据
+            $data['enumType']=2;
+            $this->readExcelInDataBase($reader,$data);
+
+            //3-listLeft
+            $data['enumType']=3;
+            $this->readExcelInDataBase($reader,$data);
+
+            //4-listRight
+            $data['enumType']=4;
+            $this->readExcelInDataBase($reader,$data);
+
+            //5-pmdLeft
+            $data['enumType']=5;
+            $this->readExcelInDataBase2($reader,$data);
+
+            //6-pmdRight
+            $data['enumType']=6;
+            $this->readExcelInDataBase2($reader,$data);
+
+            //7-story故事点进度
+            $data['enumType']=7;
+            $this->readExcelInDataBase($reader,$data);
+
+            //water-水球数据
+            $data['enumType']=8;
+            $res=$this->readExcelSheet($reader,$data['enumType']);
+
+            $obj=ResourceModel::firstOrNew($data);
+            $jsonArray=array(
+                'data'=>array(
+                    $res[0][0]=>$res[2][0],
+                    $res[0][1]=>$res[2][1],
+                    $res[0][2]=>$res[2][2],
+                    $res[0][3]=>$res[2][3]
+                )
+            );
+            $obj->textJson=json_encode($jsonArray);
+            $obj->save();
         });
     }
 
+    /**
+     * 读取Excel并入库
+     * @param $reader
+     * @param $data
+     * @return
+     */
+    function readExcelInDataBase($reader,$data){
+        $obj=ResourceModel::firstOrNew($data);
+        $res=readExcelSheet($reader,$data['enumType']);
+        $jsonArray=array();
+        foreach ($res as $key=>$item){
+            if ($key > 1){
+                $jsonArray['data'][]=array(
+                    $res[0][0]=>$item[0],
+                    $res[0][1]=>$item[1],
+                    $res[0][2]=>$item[2]
+                );
+            }
+        }
+        $obj->textJson=json_encode($jsonArray);
+        $arg=$obj->save();
+        return $arg;
+    }
+
+    function readExcelInDataBase2($reader,$data){
+        $obj=ResourceModel::firstOrNew($data);
+        $res=readExcelSheet($reader,$data['enumType']);
+        $jsonArray=array();
+        foreach ($res as $key=>$item){
+            if ($key > 1){
+                $jsonArray['data'][]=array(
+                    $res[0][0]=>$item[0],
+                    $res[0][1]=>$item[1],
+                    $res[0][2]=>$item[2],
+                    $res[0][3]=>$item[3]
+                );
+            }
+        }
+        $obj->textJson=json_encode($jsonArray);
+        $obj->save();
+    }
+
+    /**
+     * Excel解析，按sheet索引解析数据
+     * @param $reader
+     * @param $sheet
+     * @return array
+     */
+    function readExcelSheet($reader,$sheet){
+        $arg=array();
+        //获取excel的第几张表
+        $reader = $reader->getSheet($sheet);
+        //获取表中的数据
+        $data = $reader->toArray();
+        foreach ($data as $item){
+            if($item[0]){
+                $arg[]=$item;
+            }
+        }
+        return $arg;
+    }
+
+
+    /**
+     * Excel解析按sheet标题解析数据
+     * @param $reader
+     * @param $title
+     * @return array
+     */
+    function readExcelSheetTitle($reader,$title){
+        $arg=array();
+        //获取excel的第几张表
+        $reader = $reader->getTitle($title);
+        //获取表中的数据
+        $data = $reader->toArray();
+        foreach ($data as $item){
+            if($item[0]){
+                $arg[]=$item;
+            }
+        }
+        return $arg;
+    }
+
+    /**
+     * 模板下载
+     * @return BinaryFileResponse
+     */
     public function download()
     {
         $file=storage_path('download/YS质量分析上传数据模板.xlsx');

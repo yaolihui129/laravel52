@@ -70,6 +70,7 @@ Route::group ( [
     Route::match(['get','post'],'resource/upload/{integrate}/{version}/{enumType}','ResourceController@upload')
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::match(['get','post'],'resource/download','ResourceController@download');
+    Route::match(['get','post'],'resource/import','ResourceController@import');
 } );
 
 
