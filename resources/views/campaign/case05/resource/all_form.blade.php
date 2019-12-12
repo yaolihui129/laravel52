@@ -10,17 +10,17 @@
     <tr>
         <td>
             <input type="number" name="data[intDone]"
-                   value="{{isset($data['intDone'])?$data['intDone']:''}}"
+                   value="{{isset($data['intDone'])?trim($data['intDone']):''}}"
                    class="form-control" id="intDone" placeholder="请输入已完成数据">
         </td>
         <td>
             <input type="number" name="data[intSum]"
-                   value="{{isset($data['intSum'])?$data['intSum']:''}}"
+                   value="{{isset($data['intSum'])?trim($data['intSum']):''}}"
                    class="form-control" id="intSum" placeholder="请输入整体完成情况">
         </td>
         <td>
             <input type="number" name="data[intDoing]"
-                   value="{{isset($data['intDoing'])?$data['intDoing']:''}}"
+                   value="{{isset($data['intDoing'])?trim($data['intDoing']):''}}"
                    class="form-control" id="intDoing" placeholder="请输入未完成数据">
         </td>
     </tr>

@@ -11,22 +11,22 @@
     <tr>
         <td>
             <input type="number" name="data[floatDevelop]" min="0.00" max="1.00" step="0.01"
-                   value="{{isset($data['floatDevelop'])?$data['floatDevelop']:''}}"
+                   value="{{isset($data['floatDevelop'])?trim($data['floatDevelop']):''}}"
                    class="form-control" placeholder="开发完成占比（0.00-1.00）">
         </td>
         <td>
             <input type="number" name="data[floatTest]" min="0.00" max="1.00" step="0.01"
-                   value="{{isset($data['floatTest'])?$data['floatTest']:''}}"
+                   value="{{isset($data['floatTest'])?trim($data['floatTest']):''}}"
                    class="form-control" id="intSum" placeholder="测试完成占比（0.00-1.00）">
         </td>
         <td>
             <input type="number" name="data[floatUser]" min="0.00" max="1.00" step="0.01"
-                   value="{{isset($data['floatUser'])?$data['floatUser']:''}}"
+                   value="{{isset($data['floatUser'])?trim($data['floatUser']):''}}"
                    class="form-control"  placeholder="客户验证占比（0.00-1.00）">
         </td>
         <td>
             <input type="number" name="data[floatEditions]" min="0.00" max="1.00" step="0.01"
-                   value="{{isset($data['floatEditions'])?$data['floatEditions']:''}}"
+                   value="{{isset($data['floatEditions'])?trim($data['floatEditions']):''}}"
                    class="form-control"  placeholder="发版完成占比（0.00-1.00）">
         </td>
     </tr>

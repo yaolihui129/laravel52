@@ -10,8 +10,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Key</th>
-                <th>版本号</th>
+                <th>【Key】- 版本号</th>
                 <th>发版时间</th>
                 <th>修改时间</th>
                 <th width="150">操作:
@@ -24,12 +23,15 @@
             @foreach($res as $item)
                 <tr>
                     <th scope="row">{{$item->id}}</th>
-                    <td>{{$item->chrVersionKey}}</td>
-                    <td>{{$item->chrVersionName}}</td>
+                    <td>
+                        <a href="{{ url('camp/integrate/version/'.$item->id) }}">
+                            【{{$item->chrVersionKey}}】- {{$item->chrVersionName}}
+                        </a>
+                    </td>
                     <td>{{$item->IssueDate}}</td>
                     <td>{{$item->updated_at}}</td>
                     <td>
-                        <a href="{{ url('camp/integrate/version/'.$item->id) }}">集成号</a>
+{{--                        <a href="{{ url('camp/integrate/version/'.$item->id) }}">集成号</a>--}}
                         <a href="{{ url('camp/version/'.$item->id.'/edit') }}">修改</a>
                         <a href="{{ url('camp/version/'.$item->id).'/del' }}"
                            onclick="if(confirm('确定要删除吗？')== false) return false;">删除</a>

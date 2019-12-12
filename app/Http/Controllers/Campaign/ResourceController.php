@@ -98,6 +98,7 @@ class ResourceController extends Controller {
                 'data'=>$this->firstArray($enumType)
             );
         }
+
         return view('campaign.case05.resource.show',[
             'res'=>$res,
             'data'=>$data['data'],
@@ -111,7 +112,7 @@ class ResourceController extends Controller {
     }
 
     /**
-     * 资源数据复制
+     * 资源数据复制（已作废）
      * @param Request $request
      * @param $id
      * @param $integrate
@@ -164,7 +165,7 @@ class ResourceController extends Controller {
     }
 
     /**
-     * 新数据初始化
+     * 新数据初始化（已作废）
      * @param $enumType
      * @return mixed
      */
@@ -242,7 +243,7 @@ class ResourceController extends Controller {
     }
 
     /**
-     * 资源数据新增
+     * 资源数据新增（已作废）
      * @param Request $request
      * @param $integrate
      * @param $version
@@ -526,6 +527,11 @@ class ResourceController extends Controller {
         return $arg;
     }
 
+    /**
+     * 读取Excel并入库
+     * @param $reader
+     * @param $data
+     */
     function readExcelInDataBase2($reader,$data){
         $obj=ResourceModel::firstOrNew($data);
         $res=readExcelSheet($reader,$data['enumType']);
