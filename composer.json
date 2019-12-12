@@ -55,6 +55,14 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "platform": {
+            "ext-pcntl": "7.3",
+            "ext-posix": "7.3",
+            "ext-zip":"7.3",
+            "ext-intl":"7.3"
+        }
     }
 }

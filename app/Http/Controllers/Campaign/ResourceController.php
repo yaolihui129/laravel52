@@ -349,12 +349,11 @@ class ResourceController extends Controller {
 
         if($request->isMethod('POST')){
             $file = $request->file('file');
-            $res = $request->file('res');
+            $res = $request->input('res');
             $fileName=$this->uploadFile($file);
-            dd($fileName);
             if($fileName){
                 //调用解析方法
-//                $this->import($fileName,$version,$integrate,$res['resDate']);
+                $this->import('storage/app/public/'.$fileName,$version,$integrate,$res['resDate']);
                 return redirect('camp/resource/upload/'.$integrate.'/'.$version.'/'.$enumType)
                     ->with('success','上传成功');
             }else{
@@ -400,7 +399,7 @@ class ResourceController extends Controller {
         // 5.每天一个文件夹,分开存储, 生成一个随机文件名
         $fileName = date('Y_m_d').'/'.md5(time()) .mt_rand(0,9999).'.'. $fileExtension;
         if (Storage::disk($disk)->put($fileName, file_get_contents($tmpFile)) ){
-            return Storage::url($fileName);
+            return $fileName;
         }
     }
 
