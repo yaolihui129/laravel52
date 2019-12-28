@@ -5,7 +5,7 @@
     @include('campaign.common.validator')
     <div class="panel panel-default">
         <div class="panel-heading">资源数据上传
-            <a href="{{url('camp/resource/download/'.$integrate.'/'.$version.'/'.$enumType)}}">【模板下载】</a>
+            <a href="{{url('camp/resource/download/')}}">【模板下载】</a>
             <a href="{{url('/camp/integrate/version/'.$version)}}" class="btn btn-warning btn-xs pull-right">返回</a>
         </div>
         <div class="panel-body">

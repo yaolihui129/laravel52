@@ -1,21 +1,21 @@
-<?php namespace App\Models\Campaign\YS;
+<?php namespace App\Model\Campaign\YS;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class IntegrateModel extends Model {
+class ResourceModel extends Model {
     use SoftDeletes;
 
     /**
      * 关联到模型的数据表
-     *
+     *  定义关联数据表
      * @var string
      */
-    protected $table = 'ys_integrate';
+    protected $table = 'ys_resource';
 
     /**
      * The primary key associated with the table.
-     *
+     *  定于主键
      * @var string
      */
     protected $primaryKey = 'id';
@@ -26,21 +26,17 @@ class IntegrateModel extends Model {
      * @var array
      */
     protected $dates = ['deleted_at'];
-
     /**
      * 开启白名单字段
-     *
      * @var array
      */
     protected $fillable = [
-        'chrIntergrateKey',
-        'chrIntegrateName',
-        'chrIntegrateDescribe',
+        'enumType',
+        'resDate',
         'intVersionID',
-        'start_at',
-        'end_at'
+        'intIntegrateID',
+        'textJson'
     ];
-
     /**
      * 隐藏属性
      */

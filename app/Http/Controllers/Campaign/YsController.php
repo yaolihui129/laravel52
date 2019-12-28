@@ -2,8 +2,8 @@
 namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\Controller;
-use App\Models\Campaign\YS\ResourceModel;
-use App\Models\Campaign\YS\VersionModel;
+use App\Model\Campaign\YS\ResourceModel;
+use App\Model\Campaign\YS\VersionModel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

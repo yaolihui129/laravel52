@@ -67,10 +67,8 @@ Route::group ( [
         ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
     Route::get('resource/{resource}/del/{integrate}/{version}/{enumType}','ResourceController@destroy')
         ->where(['resource','[0-9]+'],['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
-    Route::match(['get','post'],'resource/upload/{integrate}/{version}/{enumType}','ResourceController@upload')
-        ->where(['integrate','[0-9]+'],['version','[0-9]+'],['enumType','[0-9]+']);
-    Route::match(['get','post'],'resource/download','ResourceController@download');
-    Route::match(['get','post'],'resource/import','ResourceController@import');
+    Route::match(['get','post'],'resource/upload/{integrate}/{version}/{enumType}','ResourceController@upload');
+    Route::match(['get','post'],'resource/download/','ResourceController@download');
 } );
 
 
@@ -96,4 +94,23 @@ Route::group ( [
 
     } );
 } );
+
+
+
+/**
+ * 文章前台
+ */
+Route::get('/posts','PostController@index' );
+
+//创建文章
+Route::post('/posts','PostController@store' );
+Route::get('/posts/create','PostController@create' );
+
+//更新文章
+Route::get('/posts/{post}/edit','PostController@edit')->where('post','[0-9]+');
+Route::put('/posts/{post}','PostController@update' )->where('post','[0-9]+');
+//删除文章
+Route::get('/posts/{post}/delete','PostController@delete' )->where('post','[0-9]+');
+//文章详情页
+Route::get('/posts/{post}','PostController@show')->where('post','[0-9]+');
 

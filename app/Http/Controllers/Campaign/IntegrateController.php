@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\Controller;
-use App\Models\Campaign\YS\IntegrateModel;
+use App\Model\Campaign\YS\IntegrateModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -2,9 +2,9 @@
 namespace App\Http\Controllers\Campaign;
 
 use App\Http\Controllers\Controller;
-use App\Models\Campaign\YS\IntegrateModel;
-use App\Models\Campaign\YS\ResourceModel;
-use App\Models\Campaign\YS\VersionModel;
+use App\Model\Campaign\YS\IntegrateModel;
+use App\Model\Campaign\YS\ResourceModel;
+use App\Model\Campaign\YS\VersionModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
