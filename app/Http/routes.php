@@ -11,17 +11,48 @@
 |
 */
 
-Route::controllers ( [
-    'auth' => 'Auth\AuthController', // 认证登录
-    'password' => 'Auth\PasswordController'  // 重置密码
-] );
-Route::get ( "/", "Auth\AuthController@getIndex" ); // Index
+// 注册页面
+Route::get('/register', '\App\Http\Controllers\RegisterController@index');
+// 注册行为
+Route::post('/register', '\App\Http\Controllers\RegisterController@register');
+// 登陆页面
+Route::get('/login', '\App\Http\Controllers\LoginController@index');
+// 登陆行为
+Route::post('/login', '\App\Http\Controllers\LoginController@login');
+Route::group([
+	'middleware' => 'auth' 
+	],function(){
+		//登出行为
+		Route::get('/logout','LoginController@logout' );
+		
+		//个人设置
+		Route::get('/user/me/setting','UserController@setting' );
+		//个人设置操作
+		Route::post('/user/me/setting','UserController@settingStore' );
+		
+		//文章列表页
+		Route::get('/posts','PostController@index' );
+		//创建文章
+		Route::post('/posts','PostController@store' );
+		Route::get('/posts/create','PostController@create' );
+		//更新文章
+		Route::get('/posts/{post}/edit','PostController@edit')->where('post','[0-9]+');
+		Route::put('/posts/{post}','PostController@update' )->where('post','[0-9]+');
+		//删除文章
+		Route::get('/posts/{post}/delete','PostController@delete' )->where('post','[0-9]+');
+		//文章详情页
+		Route::get('/posts/{post}','PostController@show')->where('post','[0-9]+');
+		//图片上传
+		Route::post('/posts/image/upload','PostController@imageUpload');
+});
+
+
 Route::group(['prefix'=>'camp'],function(){
     Route::get('/webtest',"Campaign\WebController@index");
     Route::get('/apptest',"Campaign\AppController@index");
     Route::get('/u8',"Campaign\U8Controller@index");
 });
-Route::get ( '/verify/image', 'Verify\VerifyController@index' ); // 图片验证码
+
 
 
 
@@ -95,22 +126,4 @@ Route::group ( [
     } );
 } );
 
-
-
-/**
- * 文章前台
- */
-Route::get('/posts','PostController@index' );
-
-//创建文章
-Route::post('/posts','PostController@store' );
-Route::get('/posts/create','PostController@create' );
-
-//更新文章
-Route::get('/posts/{post}/edit','PostController@edit')->where('post','[0-9]+');
-Route::put('/posts/{post}','PostController@update' )->where('post','[0-9]+');
-//删除文章
-Route::get('/posts/{post}/delete','PostController@delete' )->where('post','[0-9]+');
-//文章详情页
-Route::get('/posts/{post}','PostController@show')->where('post','[0-9]+');
 

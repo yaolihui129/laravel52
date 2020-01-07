@@ -27,21 +27,46 @@ class PostController extends Controller
             'content'=>'required|string|min:10',
         ]);
         //2.逻辑
-        $post=Post::create(request(['title','content']));
+        $user_id = \Auth::id();
+        $params = array_merge(request(['title','content']),compact('user_id'));
+        $post=Post::create($params);
         //3.渲染
         return redirect("/posts");
 
     }
     //修改文章接页
-    public function edit(){
-        return view('posts/edit');
+    public function edit(Post $post){
+        return view('posts/edit',compact('post'));
     }
     //修改文章接口
-    public function update(){
-
+    public function update(Post $post){
+        //1.验证
+        $this->validate(request(),[
+            'title'=>'required|string|max:100|min:5',
+            'content'=>'required|string|min:10',
+        ]);
+        //用户权限认证
+        $this->authorize('update',$post);
+        //2.逻辑
+        $post->title = \request('title');
+        $post->content = \request('content');
+        $post->save();
+        //3.渲染
+        return redirect("/posts/{$post->id}");
     }
     //删除文章接口
-    public function delete(){
+    public function delete(Post $post){
+        //用户权限认证
+        $this->authorize('delete',$post);
+        $post->delete();
 
+        return redirect("/posts");
+    }
+    //上传图片
+    public function imageUpload(Request $request){
+
+        $fileName=date('Y_m_d').'/'.md5(time()) .mt_rand(0,9999);
+        $path = $request->file('wangEditorH5File')->storePublicly($fileName);
+        return asset('storage/'. $path);
     }
 }
