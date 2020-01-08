@@ -8,10 +8,17 @@ use App\Http\Requests;
 
 class IndexController extends Controller
 {
-    //
-	
 	public function index(){
 		return view('index');
+	}
+	
+	public function getIndex() {
+		$user=\Auth::user();
+		$pages=array();
+		if(!empty($user)){
+			$pages["login"]="1";
+		}
+		return view ( 'campaign.index' )->with($pages);
 	}
 	
 	/**

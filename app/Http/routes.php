@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get ( "/", "IndexController@getIndex" ); // Index
 
 // 注册页面
 Route::get('/register', '\App\Http\Controllers\RegisterController@index');

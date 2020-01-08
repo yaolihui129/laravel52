@@ -7,7 +7,7 @@
                 <div>
                     <img src="{{\Auth::user()->avatar}}" alt="" class="img-rounded" style="border-radius:500px; height: 30px">
                     <a href="#" class="blog-nav-item dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                      {{ \Auth::user()->name }}
+                      {{ \Auth::user()->chrUserName }}
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">

@@ -17,7 +17,7 @@
                     @endcan
                 </div>
 
-                <p class="blog-post-meta">{{$post->created_at}} <a href="#">{{$post->user->name}}</a></p>
+                <p class="blog-post-meta">{{$post->created_at}} <a href="#">{{$post->user->chrUserName}}</a></p>
 
                 {!!$post->content!!}
                 <div>

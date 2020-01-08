@@ -29,9 +29,9 @@ class LoginController extends Controller
 		);
 		$is_remember = boolval(request('remember_token'));
 		$user =\Auth::attempt($user,$is_remember);
-		dd(\Auth::user());
+		// dd(\Auth::user());
 		if ($user) {
-			return redirect('/posts');
+			return redirect('/');
 		}
 		//渲染
 		return \Redirect::back()->withError("邮箱密码不匹配");

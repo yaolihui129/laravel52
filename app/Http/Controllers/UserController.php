@@ -23,17 +23,17 @@ class UserController extends Controller
 	public function settingStore(Request $request ){
             //验证
             $this->validate(request(), [
-                'name'=>'required|min:2',
+                'chrUserName'=>'required|min:2',
             ]);
             //逻辑
-            $name= request('name');
+            $chrUserName= request('chrUserName');
             $user = Auth::user();
             //如果更改用户名
-            if($name!=$user->name){
-                if(User::where('name',$name)->count()>0){
+            if($chrUserName!=$user->chrUserName){
+                if(User::where('chrUserName',$chrUserName)->count()>0){
                     return back()->withErrors('用户名已经被注册');
                 }
-                $user->name = $name;
+                $user->chrUserName = $chrUserName;
             }
             //如果有头像上传
             if($request->file('avatar')){

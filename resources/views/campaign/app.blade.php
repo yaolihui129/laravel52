@@ -40,14 +40,14 @@
                         <a href="javascript:void(0);" id="btnLogin">登录</a>
                     </li>
                     <li>
-                        <a href="{{url('/auth/register')}}" target="_blank">注册</a>
+                        <a href="{{url('/register')}}" target="_blank">注册</a>
                     </li>
                 @else
                     <li>
                         <a href="{{url('/desktop')}}" target="_blank">我的控制台</a>
                     </li>
                     <li class="my-control">
-                        <a href="{{url('/auth/logout')}}">退出</a>
+                        <a href="{{url('/logout')}}">退出</a>
                     </li>
                 @endif
             </ul>
@@ -135,7 +135,7 @@
             area: ["400px", "400px"], // 宽高
             scrollbar: false,
             maxmin: false,
-            content: CommonUtil.getRootPath() + "/auth/login"
+            content: CommonUtil.getRootPath() + "/login"
         });
     });
     $(window).scroll(function () {

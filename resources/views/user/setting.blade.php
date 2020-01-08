@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-10">
-                    <input class="form-control" name="name" type="text" value="{{$user->name}}">
+                    <input class="form-control" name="chrUserName" type="text" value="{{$user->chrUserName}}">
                 </div>
             </div>
             <div class="form-group">
