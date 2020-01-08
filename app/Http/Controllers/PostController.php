@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Model\Post;
 class PostController extends Controller
 {
@@ -27,7 +28,7 @@ class PostController extends Controller
             'content'=>'required|string|min:10',
         ]);
         //2.逻辑
-        $user_id = \Auth::id();
+        $user_id = Auth::id();
 		$params = array(
 			'title'		=> request('title'),
 			'content'	=> request('content')

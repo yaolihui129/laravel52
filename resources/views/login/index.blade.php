@@ -41,7 +41,7 @@
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="1" name="remember_token"> 记住我
+                <input type="checkbox" value="1" name="is_remember"> 记住我
             </label>
         </div>
         @include('layout.error')

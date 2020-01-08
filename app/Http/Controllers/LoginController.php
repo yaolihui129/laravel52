@@ -20,14 +20,14 @@ class LoginController extends Controller
 		$this->validate(request(),[
 			'chrEmail'			=> 'required|email',
 			'password'			=> 'required|min:5|max:10',
-			'remember_token' 	=> 'integer',
+			'is_remember' 	=> 'integer',
 		]);
 		//逻辑
 		$user = array(
 			'chrEmail' => request('chrEmail'),
 			'password' => request('password')
 		);
-		$is_remember = boolval(request('remember_token'));
+		$is_remember = boolval(request('is_remember'));
 		$user =\Auth::attempt($user,$is_remember);
 		// dd(\Auth::user());
 		if ($user) {
