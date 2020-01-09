@@ -7,15 +7,12 @@ $.ajaxSetup({
 var editor = new wangEditor('content');
 if (editor.config){
     editor.config.uploadImgUrl = '/posts/image/upload';
-
     // 设置 headers（举例）
     editor.config.uploadHeaders = {
         'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
     };
-
     editor.create();
 }
-
 
 $(".preview_input").change(function(event){
     var file = event.currentTarget.files[0];
@@ -38,7 +35,6 @@ $(".like-button").click(function(event){
                     alert(data.msg);
                     return;
                 }
-
                 target.attr("like-value", 0);
                 target.text("关注")
             }
@@ -54,7 +50,6 @@ $(".like-button").click(function(event){
                     alert(data.msg);
                     return;
                 }
-
                 target.attr("like-value", 1);
                 target.text("取消关注")
             }

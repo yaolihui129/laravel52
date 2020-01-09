@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Model\Model;
+use App\Model;
 
 class PostTpoic extends Model
 {

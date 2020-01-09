@@ -11,15 +11,15 @@
                     </ol><!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="http://ww1.sinaimg.cn/large/44287191gw1excbq6tb3rj21400migrz.jpg" alt="..." />
+                            <img src="/image/44287191gw1excbq6tb3rj21400migrz.jpg" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                         <div class="item">
-                            <img src="http://ww3.sinaimg.cn/large/44287191gw1excbq5iwm6j21400min3o.jpg" alt="..." />
+                            <img src="/image/44287191gw1excbq5iwm6j21400min3o.jpg" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                         <div class="item">
-                            <img src="http://ww2.sinaimg.cn/large/44287191gw1excbq4kx57j21400migs4.jpg" alt="..." />
+                            <img src="/image/44287191gw1excbq4kx57j21400migs4.jpg" alt="..." />
                             <div class="carousel-caption">...</div>
                         </div>
                     </div>
@@ -36,10 +36,10 @@
                 @foreach($posts as $post)
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href="/posts/{{$post->id}}" >{{$post->title}}</a></h2>
-                    <p class="blog-post-meta">{{$post->created_at}} by <a href="/user/{{$post->user_id}}">{{$post->user->chrUserName}}</a></p>
+                    <p class="blog-post-meta">{{$post->created_at}} by <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a></p>
 
                     {!!str_limit($post->content,100,'...')!!}
-                    <p class="blog-post-meta">赞 0  | 评论 0</p>
+                    <p class="blog-post-meta">赞 {{$post->zans_count}}  | 评论 {{$post->comments_count}}</p>
                 </div>
                 @endforeach
 
