@@ -4,6 +4,7 @@
 /public/storage
 Homestead.yaml
 Homestead.json
+composer.lock
 .env
 .DS_Store
 /nbproject
