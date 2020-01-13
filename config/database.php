@@ -61,7 +61,7 @@ return [
             'password' => env('DB_PASSWORD', 'root'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
+            'prefix' => 'l52_',
             'strict' => false,
             'engine' => null,
         ],
