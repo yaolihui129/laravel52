@@ -7,24 +7,22 @@ use Illuminate\Support\Facades\Log;
 use App\Utils\StringUtil;
 
 class AuthMenuService {
-
-    /**
-     * 获取所有菜单节点
-     *
-     * @param $user
-     * @return
-     */
+	
+	/**
+	 * 获取所有菜单节点
+	 *
+	 * @param unknown $userId        	
+	 */
 	public function getAllMenus($user) {
 		return DB::select ( "select id,chrMenuName from sys_menus where intCreaterID=$user->id" );
 	}
-
-    /**
-     *
-     * @param  $secho
-     * @param  $iDisplayStart
-     * @param  $iDisplayLength
-     * @return string
-     */
+	
+	/**
+	 *
+	 * @param unknown $secho        	
+	 * @param unknown $iDisplayStart        	
+	 * @param unknown $iDisplayLength        	
+	 */
 	public function getMenuList($secho, $iDisplayStart, $iDisplayLength) {
 		$res = DB::select ( "select count(*) as allCount from sys_menus where intFlag=0" );
 		$allcount = $res [0]->allCount;
@@ -39,14 +37,15 @@ class AuthMenuService {
 		$menus .= "}";
 		return $menus;
 	}
-
-    /**
-     * 获取所有的菜单（即菜单权限） 返回数组
-     * 数组返回值为：$menus、$ops、$leftMenu
-     *
-     * @param $user
-     * @return array :string |unknown
-     */
+	
+	/**
+	 * 获取所有的菜单（即菜单权限） 返回数组
+	 * 数组返回值为：$menus、$ops、$leftMenu
+	 *
+	 * @param unknown $userId
+	 *        	当前用户ID
+	 * @return multitype:string |unknown
+	 */
 	public function getAllMenusJson($user) {
 		try {
 			$res = $this->getMenuAuths ( $user );
@@ -112,12 +111,11 @@ class AuthMenuService {
 			// Log::info ( "错误--" . $e->getMessage () );
 		}
 	}
-
-    /**
-     *
-     * @param  $row
-     * @return string
-     */
+	
+	/**
+	 *
+	 * @param unknown $row        	
+	 */
 	private function spellAppJson($row) {
 		$app = $row->chrMenuName . ":{";
 		$app .= "appid: '" . $row->id . "',";
@@ -129,14 +127,14 @@ class AuthMenuService {
 		$app .= "},";
 		return $app;
 	}
-
-    /**
-     * 递归获取树形菜单
-     *
-     * @param  $menus
-     * @param $pId
-     * @return array
-     */
+	
+	/**
+	 * 递归获取树形菜单
+	 *
+	 * @param unknown $menus        	
+	 * @param unknown $pId        	
+	 * @param unknown $tree        	
+	 */
 	private function getTreeMenus($menus, $pId) {
 		$tree = array ();
 		foreach ( $menus as $k => $v ) {
@@ -173,7 +171,7 @@ class AuthMenuService {
 	/**
 	 * 获取上\左菜单
 	 *
-	 * @return
+	 * @return unknown
 	 */
 	public function getTopMenu() {
 		$res = DB::table ( 'select mcl.ID,mcl.chrClassifyName,mcl.intClassifyType,mcl.intClassifyAsc,mcl.chrClassifyArgs,
@@ -188,7 +186,7 @@ class AuthMenuService {
 	/**
 	 * 获取所有二级菜单(二级菜单，如如表单管理、报表管理、项目菜单管理等)
 	 *
-	 * @return
+	 * @return unknown
 	 */
 	public function getSecMenu() {
 		$res = DB::table ( 'select mty.*,img.chrSmallBGPath,img.chrDisplayBGPath,img.chrImgName,img.intIsShare 
@@ -196,12 +194,11 @@ class AuthMenuService {
 				left join img_details as img on img.id=mty.intImgDetailID' );
 		return $res;
 	}
-
-    /**
-     *
-     * @param  $user
-     * @return
-     */
+	
+	/**
+	 *
+	 * @param unknown $user        	
+	 */
 	public function getMenuAuths($user) {
 		try {
 			$adminSQL = "";
@@ -231,13 +228,12 @@ class AuthMenuService {
 			// Log::info ( "错误--" . $e->getMessage () );
 		}
 	}
-
-    /**
-     * 按钮权限
-     *
-     * @param  $user
-     * @return
-     */
+	
+	/**
+	 * 按钮权限
+	 *
+	 * @param unknown $user        	
+	 */
 	public function getButtonAuths($user) {
 		return DB::select ( "select DISTINCT spm.intMenuID,chrPriviligeOperationTypeValue optCode 
 				from sys_priviliges sper
@@ -246,13 +242,12 @@ class AuthMenuService {
 				INNER JOIN sys_user_roles sur on sur.intRoleID=sper.intPriviligeTypeValue and sur.intUserID=$user->id
 				where chrPriviligeOperationType='button'" );
 	}
-
-    /**
-     * 数据权限
-     *
-     * @param  $user
-     * @return array
-     */
+	
+	/**
+	 * 数据权限
+	 *
+	 * @param unknown $user        	
+	 */
 	public function getDataAuths($user) {
 		/*
 		 * $rows = DB::select ( "select DISTINCT sres.chrResourceCode,sres.chrResourceRule,sro.intObjectID from sys_priviliges sper INNER JOIN sys_resource_objects sro on sro.chrResObjCode=sper.chrPriviligeOperationTypeValue INNER JOIN sys_resources sres on sres.chrResourceCode=sro.chrResourceCode INNER JOIN sys_user_roles sur on sur.intRoleID=sper.intPriviligeTypeValue and sur.intUserID=$user->id where chrPriviligeOperationType='data' ORDER BY sres.chrResourceCode" );
@@ -299,20 +294,15 @@ class AuthMenuService {
 	public function delete($ids) {
 		DB::delete ( "delete from sys_menus where id in ($ids)" );
 	}
-
-    /**
-     * 查看、编辑
-     *
-     * @param  $id
-     * @return
-     */
+	
+	/**
+	 * 查看、编辑
+	 *
+	 * @param unknown $id        	
+	 */
 	public function show($id) {
-		$res = DB::select ( "
-			select id,chrMenuName menuname,intMenuAsc menuasc,chrMenuMethodArgs menuargs,
-			intParentID parentId,chrMemo memo 
-			from sys_menus 
-			where id=$id
-		" );
+		$res = DB::select ( "select id,chrMenuName menuname,intMenuAsc menuasc,chrMenuMethodArgs menuargs,
+				intParentID parentId,chrMemo memo from sys_menus where id=$id" );
 		return $res [0];
 	}
 	
@@ -333,3 +323,5 @@ class AuthMenuService {
 		] );
 	}
 }
+
+?>
