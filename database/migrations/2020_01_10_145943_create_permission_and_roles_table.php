@@ -21,13 +21,13 @@ class CreatePermissionAndRolesTable extends Migration
 			$table->timestamps();
 		});
 
-		// 权限表
-		Schema::create('back_permissions', function (Blueprint $table) {
-			$table->increments('id');
-			$table->string('name', 30)->default('');
-			$table->string('description', 100)->default('');
-			$table->timestamps();
-		});
+		// // 权限表
+		// Schema::create('back_permissions', function (Blueprint $table) {
+		// 	$table->increments('id');
+		// 	$table->string('name', 30)->default('');
+		// 	$table->string('description', 100)->default('');
+		// 	$table->timestamps();
+		// });
 
 		// 权限角色
 		Schema::create('back_permission_role', function (Blueprint $table) {
