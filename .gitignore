@@ -8,5 +8,7 @@ composer.lock
 .env
 .DS_Store
 .buildpath
+.project
 /nbproject
 /nbproject/private/
+/.settings
