@@ -7,5 +7,6 @@ Homestead.json
 composer.lock
 .env
 .DS_Store
+./buildpath
 /nbproject
 /nbproject/private/
