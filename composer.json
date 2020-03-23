@@ -6,13 +6,14 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
-        "lesstif/php-jira-rest-client": "^1.7.0",
-        "encore/laravel-admin": "1.2.*",
-        "caouecs/laravel-lang": "~3.0",
         "ext-json": "*",
-        "maatwebsite/excel": "~2.1.0",
         "box/spout": "^3.1",
+        "caouecs/laravel-lang": "~3.0",
+        "encore/laravel-admin": "1.2.*",
+        "laravel/framework": "5.2.*",
+        "lcobucci/jwt": "^3.3",
+        "lesstif/php-jira-rest-client": "^1.7.0",
+        "maatwebsite/excel": "~2.1.0",
         "mpdf/mpdf": "^8.0"
     },
     "require-dev": {
